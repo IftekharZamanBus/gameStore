@@ -3,6 +3,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Image, Input, Button } from 'antd';
 
+// sets the games using useState
 function GameList() {
   const [games, setGames] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');

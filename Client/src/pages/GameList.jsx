@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; 
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Image, Input, Button } from 'antd';
 
 // sets the games using useState
@@ -142,7 +141,7 @@ function GameList() {
                 )}
               </p>
               <p>Availability: {String(game.isActive).toLowerCase() === 'true' ? 'In Stock' : 'Out of Stock'}</p>
-              <Image width={200} src={game.picture} />
+              <Image width={200} src={`${import.meta.env.VITE_API_BASE_URL}${game.picture}`} />
               <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-around' }}>
                 {editedGames[game.id].isEditing ? (
                   <Button className="btn btn-primary" onClick={() => saveChanges(game.id)}>Save</Button>

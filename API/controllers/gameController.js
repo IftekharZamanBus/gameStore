@@ -25,8 +25,9 @@ const getGameById = async (req, res) => {
   }
 };
 
-const createGame = async (req, res) => {
-  const { name, description, picture, quantity, price, isActive } = req.body;
+const createGame = async(req, res) => {
+  const { name, description, quantity, price, isActive } = req.body;
+  let picture = req.file.path
   try {
     const game = await Game.create({
       name,

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, Input, Button, Image } from 'antd';
+import { Card, Input, Button, Image, Tooltip } from 'antd';
+import { EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 
@@ -73,9 +74,10 @@ function GameCards() {
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
         <Input
           type="text"
-          placeholder="Search..."
+          placeholder="    Search..."
           value={searchTerm}
           onChange={handleInputChange}
+          prefix={<SearchOutlined style={{ color: 'rgba(0, 0, 0, 1)' }} />}
           style={{
             width: '900px',
             height: '50px',
@@ -160,17 +162,32 @@ function GameCards() {
               <p>Availability: {String(game.isActive).toLowerCase() === 'true' ? 'In Stock' : 'Out of Stock'}</p>
               <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                 {editedGames[game.id].isEditing ? (
-                  <Button className="btn btn-primary" onClick={() => saveChanges(game.id)}>
-                    Save
-                  </Button>
+                  <Tooltip title="Save changes">
+                    <Button
+                      style={{ backgroundColor: 'blue', color: 'white' }}
+                      onClick={() => saveChanges(game.id)}
+                    >
+                      Save
+                    </Button>
+                  </Tooltip>
                 ) : (
-                  <Button className="btn btn-primary" onClick={() => toggleEditMode(game.id)}>
-                    Edit
-                  </Button>
+                  <Tooltip title="Edit game">
+                    <Button
+                      style={{ backgroundColor: 'white', color: 'black' }}
+                      onClick={() => toggleEditMode(game.id)}
+                    >
+                      {<EditOutlined />}
+                    </Button>
+                  </Tooltip>
                 )}
-                <Button className="btn btn-danger" onClick={() => deleteGame(game.id)}>
-                  Delete
-                </Button>
+                <Tooltip title="Delete game">
+                  <Button
+                    style={{ backgroundColor: '#3655b3', color: 'white' }}
+                    onClick={() => deleteGame(game.id)}
+                  >
+                    {<DeleteOutlined />}
+                  </Button>
+                </Tooltip>
               </div>
             </Card>
           ))}

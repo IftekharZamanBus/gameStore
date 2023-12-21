@@ -2,8 +2,8 @@ import React from 'react';
 
 function Footer() {
   const footerStyle = {
-    backgroundColor: '#ADFFC3',
-    color: 'black',
+    backgroundColor: '#979797',
+    color: 'white',
     padding: '15px 0',
     position: 'fixed',
     width: '100%',

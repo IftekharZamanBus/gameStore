@@ -1,11 +1,11 @@
-// App.jsx
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import GameList from './pages/GameList';
 import AddGame from './pages/AddGame';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
-import { Button } from 'antd';
+import { HomeOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button, Tooltip } from 'antd';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -15,36 +15,39 @@ function App() {
   };
 
   const buttonStyle = {
-    background: '#ADFFC3',
-    color: 'black',
+    background: '#4F7942',
+    color: 'white',
     textDecoration: 'none',
-    padding: '8px 20px',
     border: 'none',
-    borderRadius: '5px',
+    borderRadius: '20px',
     margin: '0 10px',
   };
 
   return (
     <Router>
       <div className="App" style={{ textAlign: 'center' }}>
-        <Navbar handleSearch={handleSearch} />
+        <Navbar handleSearch={handleSearch} /> {/* Pass handleSearch function as prop */}
         <nav style={{ marginTop: '10px' }}>
           <ul style={{ display: 'flex', justifyContent: 'center', listStyle: 'none', padding: 0 }}>
+          <Tooltip title="Home">
             <li>
-              <Button type="primary" style={buttonStyle}>
-                <Link to="/" style={{ ...buttonStyle, color: 'black' }}>Home</Link>
+              <Button  style={buttonStyle}>
+                <Link to="/" style={{ ...buttonStyle,}}><HomeOutlined /></Link>
               </Button>
             </li>
+          </Tooltip>
+          <Tooltip title="Add Game">
             <li>
-              <Button type="primary" style={buttonStyle}>
-                <Link to="/add" style={{ ...buttonStyle, color: 'black' }}>Add Game</Link>
+              <Button  style={buttonStyle}>
+                <Link to="/add" style={{ ...buttonStyle,}}><PlusOutlined /></Link>
               </Button>
             </li>
+          </Tooltip>
           </ul>
         </nav>
 
         <Routes>
-          <Route path="/" element={<GameList searchTerm={searchTerm} />} />
+          <Route path="/" element={<GameList searchTerm={searchTerm} />} /> {/* Pass searchTerm as a prop */}
           <Route path="/add" element={<AddGame />} />
         </Routes>
 

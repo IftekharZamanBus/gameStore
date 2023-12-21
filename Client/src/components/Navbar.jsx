@@ -1,36 +1,15 @@
-import React, { useState } from 'react';
-import { Menu, Input } from 'antd';
-import { HomeOutlined, InfoCircleOutlined, PhoneOutlined } from '@ant-design/icons';
+import React from 'react';
+import { Menu } from 'antd';
+import { InfoCircleOutlined, PhoneOutlined,LaptopOutlined } from '@ant-design/icons';
 
-const { Search } = Input;
-
-const Navbar = ({ handleSearch }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const onSearch = (value) => {
-    setSearchTerm(value.toLowerCase());
-    handleSearch(value.toLowerCase()); 
-  };
-
+const Navbar = () => {
   return (
-    <Menu
-      mode="horizontal"
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: '#ADFFC3', 
-        padding: '10px 20px', 
-      }}
-    >
-      <Menu.Item key="home" icon={<HomeOutlined />} style={{ marginRight: 'auto' }}>
+    <Menu mode="horizontal" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#4F7942', padding: '10px 20px', color: 'white' }}>
+      <Menu.Item key="home" icon={<LaptopOutlined />} style={{ marginRight: 'auto' }}>
         Game Store
       </Menu.Item>
       <Menu.Item key="about" style={{ marginRight: '10px' }}>About</Menu.Item>
       <Menu.Item key="contact" style={{ marginRight: '20px' }}>Contact</Menu.Item>
-      <Menu.Item key="search" style={{ marginRight: '10px' }}>
-        <Search placeholder="Search..." style={{ width: 200 }} onSearch={onSearch} />
-      </Menu.Item>
       <Menu.Item key="info" icon={<InfoCircleOutlined />} />
       <Menu.Item key="phone" icon={<PhoneOutlined />} />
     </Menu>

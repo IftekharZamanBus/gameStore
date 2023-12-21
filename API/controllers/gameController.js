@@ -1,6 +1,5 @@
 const Game = require('../models/game');
 
-// Controller functions for handling game-related operations
 const getAllGames = async (req, res) => {
   try {
     const games = await Game.findAll();
@@ -25,9 +24,14 @@ const getGameById = async (req, res) => {
   }
 };
 
-const createGame = async(req, res) => {
+const createGame = async (req, res) => {
   const { name, description, quantity, price, isActive } = req.body;
-  let picture = req.file.path
+
+  let picture = '';
+  if (req.file && req.file.path) {
+    picture = req.file.path;
+  }
+
   try {
     const game = await Game.create({
       name,

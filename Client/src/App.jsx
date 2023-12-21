@@ -1,3 +1,4 @@
+// App.jsx
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import GameList from './pages/GameList';
@@ -14,13 +15,13 @@ function App() {
   };
 
   const buttonStyle = {
-    background: '#ADFFC3', 
-    color: 'black', 
+    background: '#ADFFC3',
+    color: 'black',
     textDecoration: 'none',
     padding: '8px 20px',
     border: 'none',
     borderRadius: '5px',
-    margin: '0 10px', 
+    margin: '0 10px',
   };
 
   return (

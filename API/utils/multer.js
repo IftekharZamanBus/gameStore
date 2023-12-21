@@ -6,19 +6,22 @@ const storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         cb(null, `${file.fieldname}-${Date.now()}${getExtenstion(file.mimetype)}`)
-     }
-  })
+    }
+});
 
-  const getExtenstion = mimetype => {
+const getExtenstion = mimetype => {
     switch(mimetype){
         case "image/png":
-            return ".png"
+            return ".png";
         case "image/jpeg":
-            return ".jpeg"
+            return ".jpeg";
         case "image/jpg":
-            return ".jpg"
-        
+            return ".jpg";
+        default:
+            return ""; // Handle other mimetypes if needed
     }
-  }
+};
 
-  module.exports = {storage}
+const upload = multer({ storage: storage });
+
+module.exports = upload;

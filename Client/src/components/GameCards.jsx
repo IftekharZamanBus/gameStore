@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, Input, Button, Image, Tooltip, Select } from 'antd';
 import { EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
+import {IN_STOCK} from '../constants/common'
 
 const { Meta } = Card;
 const { Option } = Select;
@@ -102,7 +103,7 @@ function GameCards() {
             game.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
             game.quantity.toString().includes(searchTerm.toLowerCase()) ||
             game.price.toString().includes(searchTerm.toLowerCase()) ||
-            String(game.isActive).toLowerCase().includes(searchTerm.toLowerCase())
+            String(game.is_active).toLowerCase().includes(searchTerm.toLowerCase())
           )
           .map((game) => (
             <Card
@@ -169,16 +170,16 @@ function GameCards() {
                 Availability:{' '}
                 {editedGames[game.id].isEditing ? (
                   <Select
-                    value={editedGames[game.id].isActive ? 'In Stock' : 'Out of Stock'}
+                    value={editedGames[game.id].is_active === IN_STOCK.YES ? 'In Stock' : 'Out of Stock'}
                     onChange={(value) =>
-                      handleEditChange(game.id, 'isActive', value === 'In Stock' ? true : false)
+                      handleEditChange(game.id, 'is_active', value === IN_STOCK.YES ? true : false)
                     }
                   >
-                    <Option value="In Stock">In Stock</Option>
-                    <Option value="Out of Stock">Out of Stock</Option>
+                    <Option value={IN_STOCK.YES}>In Stock</Option>
+                    <Option value={IN_STOCK.NO}>Out of Stock</Option>
                   </Select>
                 ) : (
-                  String(game.isActive).toLowerCase() === 'true' ? 'In Stock' : 'Out of Stock'
+                  String(game.is_active) === IN_STOCK.YES ? 'In Stock' : 'Out of Stock'
                 )}
               </p>
               <div style={{ display: 'flex', justifyContent: 'space-around' }}>

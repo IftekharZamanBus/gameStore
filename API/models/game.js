@@ -1,13 +1,8 @@
 const { Sequelize, DataTypes } = require('sequelize');
-
-// Create a new instance of Sequelize and connect to your database
-const sequelize = new Sequelize('reactDB', 'postgres', 'Draco_3111', {
-  host: 'localhost',
-  dialect: 'postgres', // Change the dialect based on your database type (e.g., 'mysql' for MySQL)
-});
+const db = require('../config/database');
 
 // Define the Game model
-const Game = sequelize.define('Game', {
+const Game = db.define('Game', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -32,14 +27,31 @@ const Game = sequelize.define('Game', {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
-  isActive: {
-    type: DataTypes.BOOLEAN,
+  is_active: {
+    type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: true, // Default value: true (available)
+    defaultValue: 'Y', // Default value: true (available)
   },
+  user_id: {
+    type: DataTypes.UUID,
+    allowNull: false,
+    references: {
+      model: 'users', // Name of the table
+      key: 'id', // Primary key of the referenced table
+    },
+  },
+  created_at: {
+    type: DataTypes.DATE,
+    field: 'created_at',
+  },
+  updated_at: {
+    type: DataTypes.DATE,
+    field: 'updated_at',
+  }
 }, {
-  timestamps: true, // Automatically generate createdDate and updatedDate
-  tableName: 'games-table', // Set the table name
+  timestamps: false, // Automatically generate createdDate and updatedDate
+  underscored: true,
+  tableName: 'games', // Set the table name
 });
 
 // Export the Game model for use in other parts of your application

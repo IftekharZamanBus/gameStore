@@ -25,7 +25,7 @@ const getGameById = async (req, res) => {
 };
 
 const createGame = async (req, res) => {
-  const { name, description, quantity, price, isActive } = req.body;
+  const { name, description, quantity, price, is_active } = req.body;
 
   let picture = '';
   if (req.file && req.file.path) {
@@ -39,7 +39,7 @@ const createGame = async (req, res) => {
       picture,
       quantity,
       price,
-      isActive,
+      is_active,
     });
     res.status(201).json(game);
   } catch (error) {
@@ -50,7 +50,7 @@ const createGame = async (req, res) => {
 
 const updateGame = async (req, res) => {
   const gameId = req.params.id;
-  const { name, description, picture, quantity, price, isActive } = req.body;
+  const { name, description, picture, quantity, price, is_active } = req.body;
   try {
     const game = await Game.findByPk(gameId);
     if (!game) {
@@ -61,7 +61,7 @@ const updateGame = async (req, res) => {
     game.picture = picture;
     game.quantity = quantity;
     game.price = price;
-    game.isActive = isActive;
+    game.is_active = is_active;
     await game.save();
     res.json(game);
   } catch (error) {

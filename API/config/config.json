@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "postgres",
-    "password": "Draco_3111",
-    "database": "reactDB",
+    "password": "mysecretpassword",
+    "database": "gamestore",
     "host": "localhost",
     "dialect": "postgres"
   },

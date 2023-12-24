@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, Input, Button, Image, Tooltip } from 'antd';
+import { Card, Input, Button, Image, Tooltip, Select } from 'antd';
 import { EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
+const { Option } = Select;
 
 function GameCards() {
   const [games, setGames] = useState([]);
@@ -15,7 +16,11 @@ function GameCards() {
       try {
         const response = await axios.get('http://localhost:5050/api/games');
         setGames(response.data);
-        setEditedGames(Object.fromEntries(response.data.map((game) => [game.id, { ...game, isEditing: false }])));
+        setEditedGames(
+          Object.fromEntries(
+            response.data.map((game) => [game.id, { ...game, isEditing: false }])
+          )
+        );
       } catch (error) {
         console.error('Error fetching games:', error);
       }
@@ -83,7 +88,7 @@ function GameCards() {
             height: '50px',
             padding: '8px',
             border: '4px solid black',
-            borderRadius: '4px',
+            borderRadius: '10px',
             textAlign: 'center',
             color: 'rgba(0, 0, 0, 0.7)',
           }}
@@ -104,11 +109,12 @@ function GameCards() {
               key={game.id}
               style={{ border: '4px solid black', padding: '10px', margin: '10px', width: '300px' }}
               cover={
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', height:'200px' }}>
                   <Image
-                    width={200}
+                    width={'100%'}
+                    height={'100%'}
                     src={`${import.meta.env.VITE_API_BASE_URL}${game.picture}`}
-                    style={{ display: 'block', margin: 'auto' }}
+                    style={{ objectFit: 'cover'}}
                   />
                 </div>
               }
@@ -159,7 +165,22 @@ function GameCards() {
                   `$${game.price}`
                 )}
               </p>
-              <p>Availability: {String(game.isActive).toLowerCase() === 'true' ? 'In Stock' : 'Out of Stock'}</p>
+              <p>
+                Availability:{' '}
+                {editedGames[game.id].isEditing ? (
+                  <Select
+                    value={editedGames[game.id].isActive ? 'In Stock' : 'Out of Stock'}
+                    onChange={(value) =>
+                      handleEditChange(game.id, 'isActive', value === 'In Stock' ? true : false)
+                    }
+                  >
+                    <Option value="In Stock">In Stock</Option>
+                    <Option value="Out of Stock">Out of Stock</Option>
+                  </Select>
+                ) : (
+                  String(game.isActive).toLowerCase() === 'true' ? 'In Stock' : 'Out of Stock'
+                )}
+              </p>
               <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                 {editedGames[game.id].isEditing ? (
                   <Tooltip title="Save changes">

@@ -8,7 +8,7 @@ CREATE TABLE users (
 	username varchar(50) NULL,
 	phone_number varchar(20) NULL,
     address VARCHAR(255),
-	is_active VARCHAR(1) NULL,
+	isActive VARCHAR(1) NULL,
     created_at timestamp NOT NULL DEFAULT now(),
 	updated_at timestamp NOT NULL DEFAULT now(),
     CONSTRAINT email_column UNIQUE (email)
@@ -21,7 +21,7 @@ CREATE TABLE games (
 	picture varchar NULL,
 	quantity int4 NOT NULL,
 	price float8 NOT NULL,
-	is_active VARCHAR(1) NOT NULL,
+	isActive VARCHAR(1) NOT NULL,
     user_id uuid REFERENCES users (id),
 	created_at timestamp NOT NULL DEFAULT now(),
 	updated_at timestamp NOT NULL DEFAULT now()

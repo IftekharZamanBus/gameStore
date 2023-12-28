@@ -27,7 +27,7 @@ const Game = db.define('Game', {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
-  isActive: {
+  is_active: {
     type: DataTypes.STRING,
     allowNull: false,
     defaultValue: 'Y', // Default value: true (available)

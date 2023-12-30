@@ -60,7 +60,7 @@ const AddGame = () => {
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        autoComplete="off"
+        autoComplete="on"
       >
         <style>
           {`
@@ -157,9 +157,10 @@ const AddGame = () => {
           ]}
           tooltip="Upload a picture of the game"
         >
-          <Upload name="logo" action="/upload.do" listType="picture">
+          <Upload name="logo" action="http://localhost:5050/upload" listType="picture">
             <Button icon={<UploadOutlined />}>Click to upload</Button>
           </Upload>
+
         </Form.Item>
 
         <Form.Item

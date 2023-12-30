@@ -29,7 +29,7 @@ const User = db.define('User', {
   address: {
     type: DataTypes.STRING,
   },
-  is_active: {
+  isactive: {
     type: DataTypes.STRING,
     allowNull: false,
     defaultValue: 'Y', // Default value: true (available)

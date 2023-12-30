@@ -11,7 +11,7 @@ const login = async (req, res) => {
     return res.status(400).json({ error: "Sorry we did not find any user that match with this email address. If you haven't register, please go through our registration page." });
   }
 
-  if(user.is_active === STATUS.INACTIVE) {
+  if(user.isactive === STATUS.INACTIVE) {
     return res.status(400).json({ error: "Sorry your account is not active. Please contact our customer service." });
   }
 
@@ -23,7 +23,7 @@ const login = async (req, res) => {
       username: user.username,
       phone_number: user.phone_number,
       address: user.address,
-      is_active: user.is_active,
+      isactive: user.isactive,
       token: generateToken(user.id)
     });
   } else {

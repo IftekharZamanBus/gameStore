@@ -71,9 +71,7 @@ function App() {
           <Route path="/add" element={<AddGame />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          {/* Route to About page */}
           <Route path="/about" element={<About />} />
-          {/* Route to Contact page */}
           <Route path="/contact" element={<Contact />} />
         </Routes>
 

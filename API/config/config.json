@@ -3,7 +3,7 @@
     "username": "postgres",
     "password": "Draco_3111",
     "database": "gamestore",
-    "host": "localhost",
+    "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {

@@ -7,10 +7,10 @@ const multer = require('multer');
 const multerMiddleware = multer({storage: storage});
 
 // Define routes
-router.get('/games', gameController.getAllGames);
-router.get('/games/:id', gameController.getGameById);
-router.post('/games', multerMiddleware.single('picture'), gameController.createGame);
-router.put('/games/:id', gameController.updateGame);
-router.delete('/games/:id', gameController.deleteGame);
+router.get('/', gameController.getAllGames);
+router.get('/:id', gameController.getGameById);
+router.post('/', multerMiddleware.single('picture'), gameController.createGame);
+router.put('/:id', gameController.updateGame);
+router.delete('/:id', gameController.deleteGame);
 
 module.exports = router;

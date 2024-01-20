@@ -25,7 +25,7 @@ const getGameById = async (req, res) => {
 };
 
 const createGame = async (req, res) => {
-  const { name, description, quantity, price, isactive } = req.body;
+  const { name, description, quantity, price, isactive, user_id } = req.body;
 
   let picture = '';
   if (req.file && req.file.path) {
@@ -40,6 +40,7 @@ const createGame = async (req, res) => {
       quantity,
       price,
       isactive,
+      user_id,
     });
     res.status(201).json(game);
   } catch (error) {

@@ -10,6 +10,8 @@ const getAllGames = async (req, res) => {
   }
 };
 
+
+
 const getGameById = async (req, res) => {
   const gameId = req.params.id;
   try {

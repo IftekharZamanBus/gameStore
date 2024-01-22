@@ -6,10 +6,12 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
-import { HomeOutlined, PlusOutlined, LoginOutlined, UserAddOutlined } from '@ant-design/icons';
+import { HomeOutlined, PlusOutlined, LoginOutlined, UserAddOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
 import About from './pages/About'; // Import the About page component
 import Contact from './pages/Contact'; // Import the Contact page component
+import Profile from './pages/Profile';
+import ResetPassword from './pages/ResetPassword';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -63,6 +65,14 @@ function App() {
                 </Button>
               </li>
             </Tooltip>
+            {/* Profile Button */}
+            <Tooltip title="Profile">
+              <li>
+                <Button style={buttonStyle}>
+                  <Link to="/profile" style={{ ...buttonStyle }}><UserOutlined /></Link>
+                </Button>
+              </li>
+            </Tooltip>
           </ul>
         </nav>
 
@@ -73,6 +83,8 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
         </Routes>
 
         <Footer />

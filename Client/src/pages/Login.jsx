@@ -22,6 +22,14 @@ function Login() {
     marginBottom: '20px',
   };
 
+  const labelCol = {
+    flex: '0 0 80px', // Adjust the label width as needed
+  };
+
+  const wrapperCol = {
+    flex: '1', // Allow the input box to take the remaining width
+  };
+
   const onFinish = (values) => {
     console.log('Received values:', values);
     // Handle login logic here
@@ -32,14 +40,28 @@ function Login() {
       <div style={formStyle}>
         <h2 style={headerStyle}>Login</h2>
         <Form name="loginForm" onFinish={onFinish}>
-          <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your email!' }]} tooltip="Enter your email">
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[{ required: true, message: 'Please input your email!' }]}
+            tooltip="Enter your email"
+            labelCol={labelCol}
+            wrapperCol={wrapperCol}
+          >
             <Input placeholder="Email" />
           </Form.Item>
-          <Form.Item label="Password" name="password" rules={[{ required: true, message: 'Please input your password!' }]} tooltip="Enter your password">
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[{ required: true, message: 'Please input your password!' }]}
+            tooltip="Enter your password"
+            labelCol={labelCol}
+            wrapperCol={wrapperCol}
+          >
             <Input.Password placeholder="Password" />
           </Form.Item>
-          <Form.Item> 
-            Forgot your password? Click <a href='/'>Here</a>.
+          <Form.Item>
+            Forgot your password? Click <a href="/resetpassword">Here</a>.
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">

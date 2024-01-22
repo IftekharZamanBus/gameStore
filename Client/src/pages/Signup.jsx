@@ -22,6 +22,14 @@ function Signup() {
     marginBottom: '20px',
   };
 
+  const labelCol = {
+    flex: '0 0 120px', // Adjust the label width as needed
+  };
+
+  const wrapperCol = {
+    flex: '1', // Allow the input box to take the remaining width
+  };
+
   const onFinish = (values) => {
     console.log('Received values:', values);
     // Handle signup logic here
@@ -32,40 +40,87 @@ function Signup() {
       <div style={formStyle}>
         <h2 style={headerStyle}>Sign Up</h2>
         <Form name="signupForm" onFinish={onFinish}>
-          <Form.Item label = "Full Name" name="fullName" rules={[{ required: true, message: 'Please input your full name!' }]} tooltip="Enter your Full Name">
+          <Form.Item
+            label="Full Name"
+            name="fullName"
+            rules={[{ required: true, message: 'Please input your full name!' }]}
+            tooltip="Enter your Full Name"
+            labelCol={labelCol}
+            wrapperCol={wrapperCol}
+          >
             <Input placeholder="Full Name" />
           </Form.Item>
-          <Form.Item label = "Email" name="email" rules={[{ required: true, message: 'Please input your email!' }]} tooltip="Enter your email">
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[{ required: true, message: 'Please input your email!' }]}
+            tooltip="Enter your email"
+            labelCol={labelCol}
+            wrapperCol={wrapperCol}
+          >
             <Input placeholder="Email" />
           </Form.Item>
-          <Form.Item label = "Password" name="password" rules={[{ required: true, message: 'Please input your password!' }]} tooltip="Enter your password">
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[{ required: true, message: 'Please input your password!' }]}
+            tooltip="Enter your password"
+            labelCol={labelCol}
+            wrapperCol={wrapperCol}
+          >
             <Input.Password placeholder="Password" />
           </Form.Item>
-          <Form.Item label = "Confirm Password" name="confirmPassword" dependencies={['password']} rules={[
-            { required: true, message: 'Please confirm your password!' },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue('password') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject('The two passwords do not match!');
-              },
-            }),
-          ]} tooltip="Confirm Password">
+          <Form.Item
+            label="Con. Password"
+            name="confirmPassword"
+            dependencies={['password']}
+            rules={[
+              { required: true, message: 'Please confirm your password!' },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject('The two passwords do not match!');
+                },
+              }),
+            ]}
+            tooltip="Confirm Password"
+            labelCol={labelCol}
+            wrapperCol={wrapperCol}
+          >
             <Input.Password placeholder="Confirm Password" />
           </Form.Item>
-          <Form.Item label = "Username" name="username" rules={[{ required: true, message: 'Please input your username!' }]} tooltip="Enter your username">
+          <Form.Item
+            label="Username"
+            name="username"
+            rules={[{ required: true, message: 'Please input your username!' }]}
+            tooltip="Enter your username"
+            labelCol={labelCol}
+            wrapperCol={wrapperCol}
+          >
             <Input placeholder="Username" />
           </Form.Item>
-
-          <Form.Item label = "Phone Number" name="phone-number" rules={[{ required: true, message: 'Please input your phone-number!' }]} tooltip="Enter your phone number">
+          <Form.Item
+            label="Phone #"
+            name="phone-number"
+            rules={[{ required: true, message: 'Please input your phone-number!' }]}
+            tooltip="Enter your phone number"
+            labelCol={labelCol}
+            wrapperCol={wrapperCol}
+          >
             <Input placeholder="Phone-Number" />
           </Form.Item>
-
-          <Form.Item label = "Address" name="address" rules={[{ required: true, message: 'Please input your address' }]} tooltip="Enter your address">
+          <Form.Item
+            label="Address"
+            name="address"
+            rules={[{ required: true, message: 'Please input your address' }]}
+            tooltip="Enter your address"
+            labelCol={labelCol}
+            wrapperCol={wrapperCol}
+          >
             <Input placeholder="Address" />
           </Form.Item>
-
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Sign Up

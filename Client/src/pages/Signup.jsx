@@ -1,5 +1,7 @@
 import React from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Signup() {
   const containerStyle = {
@@ -17,11 +19,6 @@ function Signup() {
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
   };
 
-  const headerStyle = {
-    textAlign: 'center',
-    marginBottom: '20px',
-  };
-
   const labelCol = {
     flex: '0 0 120px', // Adjust the label width as needed
   };
@@ -30,15 +27,27 @@ function Signup() {
     flex: '1', // Allow the input box to take the remaining width
   };
 
-  const onFinish = (values) => {
-    console.log('Received values:', values);
-    // Handle signup logic here
+  const navigate = useNavigate();
+
+  const onFinish = async (values) => {
+    try {
+      const response = await axios.post('http://localhost:5050/api/users/register', values);
+      console.log('Signup response:', response.data);
+
+      // For demonstration purposes, show success message and navigate to /profile
+      message.success('Signup successful!');
+      navigate('/profile');
+    } catch (error) {
+      console.error('Error signing up:', error);
+      // Handle signup error
+      message.error('Error signing up. Please try again.');
+    }
   };
 
   return (
     <div style={containerStyle}>
       <div style={formStyle}>
-        <h2 style={headerStyle}>Sign Up</h2>
+        <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Sign Up</h2>
         <Form name="signupForm" onFinish={onFinish}>
           <Form.Item
             label="Full Name"
@@ -71,7 +80,7 @@ function Signup() {
             <Input.Password placeholder="Password" />
           </Form.Item>
           <Form.Item
-            label="Con. Password"
+            label="Confirm Password"
             name="confirmPassword"
             dependencies={['password']}
             rules={[

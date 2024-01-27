@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, message } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -8,76 +8,81 @@ function Signup() {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '75vh',
+    height: '95vh',
   };
 
   const formStyle = {
-    margin: '0 20px',
-    padding: '50px',
+    margin: '0 15px',
+    padding: '40px',
     border: '1px solid #ccc',
     borderRadius: '5px',
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+    maxWidth: 600,
+    width: '100%',
+  };
+
+  const headerStyle = {
+    textAlign: 'center',
+    marginBottom: '20px',
   };
 
   const labelCol = {
-    flex: '0 0 120px', // Adjust the label width as needed
+    span: 24,
+    style: {
+      textAlign: 'center',
+    },
   };
 
   const wrapperCol = {
-    flex: '1', // Allow the input box to take the remaining width
+    span: 24,
   };
 
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
     try {
-      const response = await axios.post('http://localhost:5050/api/users/register', values);
-      console.log('Signup response:', response.data);
+      const response = await axios.post('http://localhost:5050/api/users/register', {
+        full_name: values.fullName, // Make sure to include the full_name field
+        email: values.email,
+        password: values.password,
+        username: values.username,
+        phone_number: values['phone-number'],
+        address: values.address,
+      });
 
-      // For demonstration purposes, show success message and navigate to /profile
-      message.success('Signup successful!');
-      navigate('/profile');
+      // Handle successful signup
+      console.log('Signup successful:', response.data);
     } catch (error) {
-      console.error('Error signing up:', error);
       // Handle signup error
-      message.error('Error signing up. Please try again.');
+      console.error('Error signing up:', error);
     }
   };
 
   return (
     <div style={containerStyle}>
       <div style={formStyle}>
-        <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Sign Up</h2>
-        <Form name="signupForm" onFinish={onFinish}>
+        <h2 style={headerStyle}>Sign Up</h2>
+        <Form name="signupForm" onFinish={onFinish} labelCol={labelCol} wrapperCol={wrapperCol}>
           <Form.Item
             label="Full Name"
             name="fullName"
             rules={[{ required: true, message: 'Please input your full name!' }]}
-            tooltip="Enter your Full Name"
-            labelCol={labelCol}
-            wrapperCol={wrapperCol}
           >
-            <Input placeholder="Full Name" />
+            <Input placeholder="Full Name" style={{ textAlign: 'left' }} />
           </Form.Item>
           <Form.Item
             label="Email"
             name="email"
             rules={[{ required: true, message: 'Please input your email!' }]}
-            tooltip="Enter your email"
-            labelCol={labelCol}
-            wrapperCol={wrapperCol}
           >
-            <Input placeholder="Email" />
+            <Input placeholder="Email" style={{ textAlign: 'left' }} />
           </Form.Item>
           <Form.Item
             label="Password"
             name="password"
             rules={[{ required: true, message: 'Please input your password!' }]}
-            tooltip="Enter your password"
-            labelCol={labelCol}
-            wrapperCol={wrapperCol}
           >
-            <Input.Password placeholder="Password" />
+            <Input.Password placeholder="Password" style={{ textAlign: 'left', width: '100%' }} />
           </Form.Item>
           <Form.Item
             label="Confirm Password"
@@ -94,43 +99,34 @@ function Signup() {
                 },
               }),
             ]}
-            tooltip="Confirm Password"
-            labelCol={labelCol}
-            wrapperCol={wrapperCol}
           >
-            <Input.Password placeholder="Confirm Password" />
+            <Input.Password
+              placeholder="Confirm Password"
+              style={{ textAlign: 'left', width: '100%' }}
+            />
           </Form.Item>
           <Form.Item
             label="Username"
             name="username"
             rules={[{ required: true, message: 'Please input your username!' }]}
-            tooltip="Enter your username"
-            labelCol={labelCol}
-            wrapperCol={wrapperCol}
           >
-            <Input placeholder="Username" />
+            <Input placeholder="Username" style={{ textAlign: 'left' }} />
           </Form.Item>
           <Form.Item
             label="Phone #"
             name="phone-number"
             rules={[{ required: true, message: 'Please input your phone-number!' }]}
-            tooltip="Enter your phone number"
-            labelCol={labelCol}
-            wrapperCol={wrapperCol}
           >
-            <Input placeholder="Phone-Number" />
+            <Input placeholder="Phone-Number" style={{ textAlign: 'left' }} />
           </Form.Item>
           <Form.Item
             label="Address"
             name="address"
             rules={[{ required: true, message: 'Please input your address' }]}
-            tooltip="Enter your address"
-            labelCol={labelCol}
-            wrapperCol={wrapperCol}
           >
-            <Input placeholder="Address" />
+            <Input placeholder="Address" style={{ textAlign: 'left' }} />
           </Form.Item>
-          <Form.Item>
+          <Form.Item wrapperCol={{ span: 24, textAlign: 'left' }}>
             <Button type="primary" htmlType="submit">
               Sign Up
             </Button>

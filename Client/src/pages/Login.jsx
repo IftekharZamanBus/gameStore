@@ -11,10 +11,12 @@ function Login() {
 
   const formStyle = {
     margin: '0 20px',
-    padding: '20px',
+    padding: '30px',
     border: '1px solid #ccc',
     borderRadius: '5px',
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+    maxWidth: 400,
+    width: '100%',
   };
 
   const headerStyle = {
@@ -23,11 +25,19 @@ function Login() {
   };
 
   const labelCol = {
-    flex: '0 0 80px', // Adjust the label width as needed
+    span: 24,
+    style: {
+      textAlign: 'center',
+    },
   };
 
   const wrapperCol = {
-    flex: '1', // Allow the input box to take the remaining width
+    span: 24,
+  };
+
+  const buttonCol = {
+    span: 24,
+    textAlign: 'center', // Center the button
   };
 
   const onFinish = (values) => {
@@ -39,31 +49,25 @@ function Login() {
     <div style={containerStyle}>
       <div style={formStyle}>
         <h2 style={headerStyle}>Login</h2>
-        <Form name="loginForm" onFinish={onFinish}>
+        <Form name="loginForm" onFinish={onFinish} labelCol={labelCol} wrapperCol={wrapperCol}>
           <Form.Item
             label="Email"
             name="email"
             rules={[{ required: true, message: 'Please input your email!' }]}
-            tooltip="Enter your email"
-            labelCol={labelCol}
-            wrapperCol={wrapperCol}
           >
-            <Input placeholder="Email" />
+            <Input placeholder="Email" style={{ textAlign: 'left' }} />
           </Form.Item>
           <Form.Item
             label="Password"
             name="password"
             rules={[{ required: true, message: 'Please input your password!' }]}
-            tooltip="Enter your password"
-            labelCol={labelCol}
-            wrapperCol={wrapperCol}
           >
-            <Input.Password placeholder="Password" />
+            <Input.Password placeholder="Password" style={{ textAlign: 'center' }} />
           </Form.Item>
           <Form.Item>
             Forgot your password? Click <a href="/resetpassword">Here</a>.
           </Form.Item>
-          <Form.Item>
+          <Form.Item wrapperCol={buttonCol}>
             <Button type="primary" htmlType="submit">
               Login
             </Button>

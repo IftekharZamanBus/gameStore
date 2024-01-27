@@ -8,7 +8,7 @@ function Profile() {
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-        const response = await axios.get('http://localhost:5050/api/profiles');
+        const response = await axios.get('http://localhost:5050/api/users');
         setProfiles(response.data);
       } catch (error) {
         console.error('Error fetching profiles:', error);
@@ -20,8 +20,7 @@ function Profile() {
 
   return (
     <div>
-      <h1>Profile</h1>
-      <p>This is where all of the profiles will come after coming into the database.</p>
+      <h1>Profiles</h1>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         <UserCards profiles={profiles} />

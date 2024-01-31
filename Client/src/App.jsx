@@ -1,3 +1,4 @@
+// Import necessary modules and components from React, react-router-dom, antd, and your application files
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import GameList from './pages/GameList';
@@ -6,20 +7,30 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
-import { HomeOutlined, PlusOutlined, LoginOutlined, UserAddOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  HomeOutlined,
+  PlusOutlined,
+  LoginOutlined,
+  UserAddOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
 import About from './pages/About'; // Import the About page component
 import Contact from './pages/Contact'; // Import the Contact page component
 import Profile from './pages/Profile';
 import ResetPassword from './pages/ResetPassword';
 
+// Define the functional component named App
 function App() {
+  // State for search term
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Callback function to handle search term changes
   const handleSearch = (term) => {
     setSearchTerm(term);
   };
 
+  // Style for navigation buttons
   const buttonStyle = {
     background: '#4F7942',
     color: 'white',
@@ -29,12 +40,17 @@ function App() {
     margin: '0 10px',
   };
 
+  // JSX structure for the App component
   return (
     <Router>
       <div className="App" style={{ textAlign: 'center' }}>
+        {/* Navigation bar component */}
         <Navbar handleSearch={handleSearch} />
+
+        {/* Navigation buttons */}
         <nav style={{ marginTop: '10px' }}>
           <ul style={{ display: 'flex', justifyContent: 'center', listStyle: 'none', padding: 0 }}>
+            {/* Home Button */}
             <Tooltip title="Home">
               <li>
                 <Button style={buttonStyle}>
@@ -42,6 +58,7 @@ function App() {
                 </Button>
               </li>
             </Tooltip>
+            {/* Add Game Button */}
             <Tooltip title="Add Game">
               <li>
                 <Button style={buttonStyle}>
@@ -76,6 +93,7 @@ function App() {
           </ul>
         </nav>
 
+        {/* Routes for different pages */}
         <Routes>
           <Route path="/" element={<GameList searchTerm={searchTerm} />} />
           <Route path="/add" element={<AddGame />} />
@@ -87,10 +105,12 @@ function App() {
           <Route path="/resetpassword" element={<ResetPassword />} />
         </Routes>
 
+        {/* Footer component */}
         <Footer />
       </div>
     </Router>
   );
 }
 
+// Export the App component as the default export of this module
 export default App;

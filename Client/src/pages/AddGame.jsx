@@ -1,11 +1,15 @@
+// Import necessary modules and components from React and ant-design library
 import React, { useState } from 'react';
 import { Button, Form, Input, Select, Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
+// Destructuring to get the 'Option' component from 'Select'
 const { Option } = Select;
 
+// Define the functional component named AddGame
 const AddGame = () => {
+  // State to manage the form data for adding a game
   const [game, setGame] = useState({
     name: '',
     description: '',
@@ -15,8 +19,10 @@ const AddGame = () => {
     picture: null,
   });
 
+  // State to manage the form layout (vertical)
   const [formLayout, setFormLayout] = useState('vertical');
 
+  // Styles for various sections of the component
   const containerStyle = {
     display: 'flex',
     justifyContent: 'center',
@@ -54,8 +60,10 @@ const AddGame = () => {
     textAlign: 'left',
   };
 
+  // Handler for form submission
   const onFinish = async (values) => {
     try {
+      // Create a FormData object to handle file uploads
       const formData = new FormData();
       formData.append('name', game.name);
       formData.append('description', game.description);
@@ -68,7 +76,7 @@ const AddGame = () => {
         formData.append('picture', game.picture.originFileObj);
       }
 
-      // Use the game data to add a new game
+      // Use axios to make a POST request to add a new game
       await axios.post(`http://localhost:5050/api/games`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -84,6 +92,7 @@ const AddGame = () => {
     }
   };
 
+  // Custom function to normalize file input
   const normFile = (e) => {
     if (Array.isArray(e)) {
       return e;
@@ -91,6 +100,7 @@ const AddGame = () => {
     return e && e.fileList;
   };
 
+  // JSX structure for the AddGame component
   return (
     <div style={containerStyle}>
       <Form
@@ -106,6 +116,7 @@ const AddGame = () => {
         autoComplete="on"
       >
          <h2>Add Game</h2>
+        {/* Form items for various game attributes */}
         <Form.Item
           label="Name"
           name="name"
@@ -189,6 +200,7 @@ const AddGame = () => {
             style={inputStyle}
             onChange={(value) => setGame({ ...game, availability: value })}
           >
+            {/* Options for availability selection */}
             <Option value="In Stock">In Stock</Option>
             <Option value="Out of Stock">Out of Stock</Option>
           </Select>
@@ -206,11 +218,13 @@ const AddGame = () => {
             },
           ]}
         >
+          {/* Upload component for game picture */}
           <Upload name="picture" action="http://localhost:5050/api/games/upload" listType="picture">
             <Button icon={<UploadOutlined />}>Click to upload</Button>
           </Upload>
         </Form.Item>
 
+        {/* Submit button */}
         <Form.Item
           wrapperCol={buttonCol}
         >
@@ -223,4 +237,5 @@ const AddGame = () => {
   );
 };
 
+// Export the AddGame component as the default export of this module
 export default AddGame;

@@ -1,8 +1,11 @@
+// Import necessary modules and components from React and ant-design library
 import React from 'react';
 import { Form, Input, Button, Tooltip } from 'antd';
 import { MailOutlined, PhoneOutlined } from '@ant-design/icons';
 
+// Define the functional component named Contact
 function Contact() {
+  // Styles for various sections of the component
   const containerStyle = {
     display: 'flex',
     justifyContent: 'center',
@@ -31,16 +34,20 @@ function Contact() {
     flex: '1', // Allow the input box to take the remaining width
   };
 
+  // Handler for form submission
   const onFinish = (values) => {
     console.log('Received values:', values);
     // Handle signup logic here
   };
 
+  // JSX structure for the Contact component
   return (
     <div style={containerStyle}>
       <div style={formStyle}>
         <h2 style={headerStyle}>Contact Us</h2>
+        {/* Form for user contact */}
         <Form name="contactForm" onFinish={onFinish}>
+          {/* Form item for Full Name */}
           <Form.Item
             label="Name"
             name="fullName"
@@ -51,6 +58,7 @@ function Contact() {
           >
             <Input placeholder="Full Name" />
           </Form.Item>
+          {/* Form item for Email */}
           <Form.Item
             label="Email"
             name="email"
@@ -61,6 +69,7 @@ function Contact() {
           >
             <Input placeholder="Email" />
           </Form.Item>
+          {/* Form item for Phone Number */}
           <Form.Item
             label="Phone #"
             name="phone-number"
@@ -71,6 +80,7 @@ function Contact() {
           >
             <Input placeholder="Phone-Number" style={{ width: '100%' }} />
           </Form.Item>
+          {/* Form item for Message */}
           <Form.Item
             label="Message"
             name="message"
@@ -81,6 +91,7 @@ function Contact() {
           >
             <Input.TextArea placeholder="Message" autoSize={{ minRows: 3 }} />
           </Form.Item>
+          {/* Tooltip-wrapped Submit button */}
           <Tooltip title="Submit">
             <Form.Item>
               <Button type="primary" htmlType="submit">
@@ -88,6 +99,7 @@ function Contact() {
               </Button>
             </Form.Item>
           </Tooltip>
+          {/* Contact information */}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <MailOutlined style={{ fontSize: '20px', marginRight: '10px' }} />
             <p>game@store.com</p>
@@ -102,4 +114,5 @@ function Contact() {
   );
 }
 
+// Export the Contact component as the default export of this module
 export default Contact;

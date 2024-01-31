@@ -1,9 +1,12 @@
+// Import necessary modules and components from React, antd, react-router-dom, and axios
 import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+// Define the functional component named Signup
 function Signup() {
+  // Styles for layout and elements
   const containerStyle = {
     display: 'flex',
     justifyContent: 'center',
@@ -26,6 +29,7 @@ function Signup() {
     marginBottom: '20px',
   };
 
+  // Col configurations for Form.Item
   const labelCol = {
     span: 24,
     style: {
@@ -37,10 +41,13 @@ function Signup() {
     span: 24,
   };
 
+  // React Router hook for navigation
   const navigate = useNavigate();
 
+  // Callback function when the form is submitted
   const onFinish = async (values) => {
     try {
+      // Send a POST request to the server for user registration
       const response = await axios.post('http://localhost:5050/api/users/register', {
         full_name: values.fullName, // Make sure to include the full_name field
         email: values.email,
@@ -52,17 +59,25 @@ function Signup() {
 
       // Handle successful signup
       console.log('Signup successful:', response.data);
+
+      // Redirect to another page after successful signup (you might want to replace '/login' with the actual path)
+      navigate('/login');
     } catch (error) {
       // Handle signup error
       console.error('Error signing up:', error);
     }
   };
 
+  // JSX structure for the Signup component
   return (
     <div style={containerStyle}>
       <div style={formStyle}>
+        {/* Heading for the signup section */}
         <h2 style={headerStyle}>Sign Up</h2>
+
+        {/* Ant Design Form component */}
         <Form name="signupForm" onFinish={onFinish} labelCol={labelCol} wrapperCol={wrapperCol}>
+          {/* Input for full name */}
           <Form.Item
             label="Full Name"
             name="fullName"
@@ -70,6 +85,8 @@ function Signup() {
           >
             <Input placeholder="Full Name" style={{ textAlign: 'left' }} />
           </Form.Item>
+
+          {/* Input for email */}
           <Form.Item
             label="Email"
             name="email"
@@ -77,6 +94,8 @@ function Signup() {
           >
             <Input placeholder="Email" style={{ textAlign: 'left' }} />
           </Form.Item>
+
+          {/* Input for password */}
           <Form.Item
             label="Password"
             name="password"
@@ -84,6 +103,8 @@ function Signup() {
           >
             <Input.Password placeholder="Password" style={{ textAlign: 'left', width: '100%' }} />
           </Form.Item>
+
+          {/* Input for confirming password */}
           <Form.Item
             label="Confirm Password"
             name="confirmPassword"
@@ -105,6 +126,8 @@ function Signup() {
               style={{ textAlign: 'left', width: '100%' }}
             />
           </Form.Item>
+
+          {/* Input for username */}
           <Form.Item
             label="Username"
             name="username"
@@ -112,6 +135,8 @@ function Signup() {
           >
             <Input placeholder="Username" style={{ textAlign: 'left' }} />
           </Form.Item>
+
+          {/* Input for phone number */}
           <Form.Item
             label="Phone #"
             name="phone-number"
@@ -119,6 +144,8 @@ function Signup() {
           >
             <Input placeholder="Phone-Number" style={{ textAlign: 'left' }} />
           </Form.Item>
+
+          {/* Input for address */}
           <Form.Item
             label="Address"
             name="address"
@@ -126,6 +153,8 @@ function Signup() {
           >
             <Input placeholder="Address" style={{ textAlign: 'left' }} />
           </Form.Item>
+
+          {/* Button for submitting the form */}
           <Form.Item wrapperCol={{ span: 24, textAlign: 'left' }}>
             <Button type="primary" htmlType="submit">
               Sign Up
@@ -137,4 +166,5 @@ function Signup() {
   );
 }
 
+// Export the Signup component as the default export of this module
 export default Signup;

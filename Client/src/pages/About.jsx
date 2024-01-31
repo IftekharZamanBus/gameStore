@@ -1,7 +1,10 @@
+// Import necessary modules and components from React and react-icons library
 import React from 'react';
 import { FaGamepad, FaStore, FaGlobe, FaUsers } from 'react-icons/fa';
 
+// Define the functional component named About
 const About = () => {
+  // Styles for various sections of the component
   const containerStyle = {
     maxWidth: '900px',
     margin: 'auto',
@@ -47,6 +50,7 @@ const About = () => {
     textAlign: 'center',
   };
 
+  // JSX structure for the About component
   return (
     <div style={containerStyle}>
       <h2 style={headingStyle}>About Us</h2>
@@ -61,6 +65,7 @@ const About = () => {
 
       <h2 style={headingStyle}>Values</h2>
 
+      {/* Displaying icons, words, and descriptions for each value */}
       <div style={iconContainerStyle}>
         <div style={{ textAlign: 'center' }}>
           <FaGamepad style={iconStyle} />
@@ -90,4 +95,5 @@ const About = () => {
   );
 };
 
+// Export the About component as the default export of this module
 export default About;

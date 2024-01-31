@@ -1,7 +1,10 @@
+// Import necessary modules and components from React and ant-design library
 import React from 'react';
 import { Form, Input, Button } from 'antd';
 
+// Define the functional component named Login
 function Login() {
+  // Style definitions for layout and appearance
   const containerStyle = {
     display: 'flex',
     justifyContent: 'center',
@@ -40,16 +43,20 @@ function Login() {
     textAlign: 'center', // Center the button
   };
 
+  // Handler for form submission
   const onFinish = (values) => {
     console.log('Received values:', values);
     // Handle login logic here
   };
 
+  // JSX structure for the Login component
   return (
     <div style={containerStyle}>
       <div style={formStyle}>
+        {/* Form component for user login */}
         <h2 style={headerStyle}>Login</h2>
         <Form name="loginForm" onFinish={onFinish} labelCol={labelCol} wrapperCol={wrapperCol}>
+          {/* Input field for email */}
           <Form.Item
             label="Email"
             name="email"
@@ -57,6 +64,8 @@ function Login() {
           >
             <Input placeholder="Email" style={{ textAlign: 'left' }} />
           </Form.Item>
+
+          {/* Input field for password */}
           <Form.Item
             label="Password"
             name="password"
@@ -64,9 +73,13 @@ function Login() {
           >
             <Input.Password placeholder="Password" style={{ textAlign: 'center' }} />
           </Form.Item>
+
+          {/* Link for password reset */}
           <Form.Item>
             Forgot your password? Click <a href="/resetpassword">Here</a>.
           </Form.Item>
+
+          {/* Submit button */}
           <Form.Item wrapperCol={buttonCol}>
             <Button type="primary" htmlType="submit">
               Login
@@ -78,4 +91,5 @@ function Login() {
   );
 }
 
+// Export the Login component as the default export of this module
 export default Login;

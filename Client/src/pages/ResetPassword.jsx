@@ -1,7 +1,10 @@
+// Import necessary modules and components from React and antd
 import React from 'react';
 import { Form, Input, Button } from 'antd';
 
+// Define the functional component named ResetPassword
 function ResetPassword() {
+  // Styles for layout and elements
   const containerStyle = {
     display: 'flex',
     justifyContent: 'center',
@@ -24,6 +27,7 @@ function ResetPassword() {
     marginBottom: '20px',
   };
 
+  // Col configurations for Form.Item
   const labelCol = {
     span: 24,
     style: {
@@ -35,16 +39,22 @@ function ResetPassword() {
     span: 24,
   };
 
+  // Callback function when the form is submitted
   const onFinish = (values) => {
     console.log('Received values:', values);
     // Handle reset password logic here
   };
 
+  // JSX structure for the ResetPassword component
   return (
     <div style={containerStyle}>
       <div style={formStyle}>
+        {/* Heading for the reset password section */}
         <h2 style={headerStyle}>Reset Password</h2>
+
+        {/* Ant Design Form component */}
         <Form name="resetPasswordForm" onFinish={onFinish} labelCol={labelCol} wrapperCol={wrapperCol}>
+          {/* Input for new password */}
           <Form.Item
             label="New Password"
             name="newPassword"
@@ -55,6 +65,8 @@ function ResetPassword() {
               style={{ textAlign: 'center', width: '100%' }}
             />
           </Form.Item>
+
+          {/* Input for confirming new password */}
           <Form.Item
             label="Confirm Password"
             name="confirmPassword"
@@ -76,6 +88,8 @@ function ResetPassword() {
               style={{ textAlign: 'center', width: '100%' }}
             />
           </Form.Item>
+
+          {/* Button for submitting the form */}
           <Form.Item wrapperCol={{ span: 24, textAlign: 'center' }}>
             <Button type="primary" htmlType="submit">
               Reset Password
@@ -87,4 +101,5 @@ function ResetPassword() {
   );
 }
 
+// Export the ResetPassword component as the default export of this module
 export default ResetPassword;

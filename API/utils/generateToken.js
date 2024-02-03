@@ -1,5 +1,5 @@
 // Import the jsonwebtoken library for generating JWT (JSON Web Tokens)
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken'); 
 
 // Define a function to generate a JWT token based on a user's ID
 const generateToken = (id) => {

@@ -3,7 +3,7 @@ const Game = require('../models/game');
 const asyncHandler = require('express-async-handler');
 
 // Define a function to get all games
-const getAllGames = async (req, res) => {
+const getAllGames = asyncHandler(async (req, res) => {
   try {
     // Retrieve all games from the database using Sequelize's findAll method
     const games = await Game.findAll();
@@ -14,10 +14,10 @@ const getAllGames = async (req, res) => {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-};
+});
 
 // Define a function to get a game by its ID
-const getGameById = async (req, res) => {
+const getGameById = asyncHandler(async (req, res) => {
   // Extract the game ID from the request parameters
   const gameId = req.params.id;
   try {
@@ -34,7 +34,7 @@ const getGameById = async (req, res) => {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-};
+});
 
 // Define a function to create a new game
 const createGame = asyncHandler(async (req, res) => {
@@ -107,7 +107,7 @@ const updateGame = asyncHandler(async (req, res) => {
 });
 
 // Define a function to delete a game by its ID
-const deleteGame = async (req, res) => {
+const deleteGame = asyncHandler(async (req, res) => {
   // Extract the game ID from the request parameters
   const gameId = req.params.id;
 
@@ -130,7 +130,7 @@ const deleteGame = async (req, res) => {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-};
+});
 
 // Export all the defined functions as an object
 module.exports = {

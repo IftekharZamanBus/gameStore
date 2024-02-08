@@ -43,7 +43,7 @@ const AddGame = () => {
   const labelCol = {
     span: 24,
     style: {
-      textAlign: 'center',
+      textAlign: 'left',
     },
   };
 

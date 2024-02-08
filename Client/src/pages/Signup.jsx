@@ -33,7 +33,7 @@ function Signup() {
   const labelCol = {
     span: 24,
     style: {
-      textAlign: 'center',
+      textAlign: 'left',
     },
   };
 

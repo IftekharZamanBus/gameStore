@@ -5,6 +5,8 @@ const router = express.Router();
 // Import the userController module for handling user-related routes
 const userController = require('../controllers/userController');
 
+const { protect, admin } = require('../middleware/authMiddleware');
+
 // Define routes using the router
 
 // Route to get all users
@@ -14,16 +16,17 @@ router.get('/', userController.getAllUsers);
 router.get('/:id', userController.getUserById);
 
 // Route to register a new user
-router.post('/register', userController.register);
+router.post('/register', [protect, admin,], userController.register);
 
 // Route to handle user login
-router.post('/login', userController.login);
+router.post('/login', [protect, admin,], userController.login);
 
 // Route to update an existing user
-router.put('/:id', userController.updateUser);
+router.put('/:id', [protect, admin,], userController.updateUser);
 
 // Route to delete a user by ID
-router.delete('/:id', userController.deleteUser);
+router.delete('/:id', [protect, admin, ], userController.deleteUser);
 
 // Export the router for use in other parts of your application
 module.exports = router;
+

@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 
 // Import the User model from the '../models/user' file
 const User = require("../models/user");
+const asyncHandler = require('express-async-handler');
 
 // Import the bcrypt library for password hashing
 const bcrypt = require("bcryptjs");
@@ -14,7 +15,7 @@ const { STATUS } = require("../utils/constants");
 const generateToken = require("../utils/generateToken");
 
 // Define a function to handle user login
-const login = async (req, res) => {
+const login = asyncHandler(async (req, res) => {
   // Extract email and password from the request body
   const { email, password } = req.body;
 
@@ -53,10 +54,10 @@ const login = async (req, res) => {
     // If the passwords do not match, return a 400 Bad Request response
     return res.status(400).json({ error: "Invalid email or password." });
   }
-};
+});
 
 // Define a function to handle user registration
-const register = async (req, res) => {
+const register = asyncHandler(async (req, res) => {
   // Extract user information from the request body
   const { full_name, email, password, username, role, phone_number, address } = req.body;
 
@@ -91,10 +92,10 @@ const register = async (req, res) => {
     console.error("Error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
-};
+});
 
 // Define a function to get a user by their ID
-const getUserById = async (req, res) => {
+const getUserById = asyncHandler(async (req, res) => {
   // Extract the user ID from the request parameters
   const userId = req.params.id;
   try {
@@ -111,10 +112,10 @@ const getUserById = async (req, res) => {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-};
+});
 
 // Define a function to get all users
-const getAllUsers = async (req, res) => {
+const getAllUsers = asyncHandler(async (req, res) => {
   try {
     // Retrieve all users from the database using Sequelize's findAll method
     const users = await User.findAll();
@@ -125,10 +126,10 @@ const getAllUsers = async (req, res) => {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-};
+});
 
 // Define a function to update an existing user
-const updateUser = async (req, res) => {
+const updateUser = asyncHandler(async (req, res) => {
   // Extract the user ID from the request parameters
   const userId = req.params.id;
 
@@ -168,10 +169,10 @@ const updateUser = async (req, res) => {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-};
+});
 
 // Define a function to delete a user by their ID
-const deleteUser = async (req, res) => {
+const deleteUser = asyncHandler(async (req, res) => {
   // Extract the user ID from the request parameters
   const userId = req.params.id;
 
@@ -193,7 +194,7 @@ const deleteUser = async (req, res) => {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-};
+});
 
 // Export all the defined functions as an object
 module.exports = {

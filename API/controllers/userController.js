@@ -29,7 +29,7 @@ const login = async (req, res) => {
   }
 
   // Check if the user's account is inactive and return a 400 Bad Request response if it is
-  if (user.isactive === STATUS.INACTIVE) {
+  if (user.is_active === STATUS.INACTIVE) {
     return res.status(400).json({
       error: "Sorry your account is not active. Please contact our customer service."
     });
@@ -43,9 +43,10 @@ const login = async (req, res) => {
       full_name: user.full_name,
       email: user.email,
       username: user.username,
+      role: user.role,
       phone_number: user.phone_number,
       address: user.address,
-      isactive: user.isactive,
+      is_active: user.is_active,
       token: generateToken(user.id)
     });
   } else {
@@ -57,7 +58,7 @@ const login = async (req, res) => {
 // Define a function to handle user registration
 const register = async (req, res) => {
   // Extract user information from the request body
-  const { full_name, email, password, username, phone_number, address } = req.body;
+  const { full_name, email, password, username, role, phone_number, address } = req.body;
 
   try {
     // Check if a user with the provided email already exists in the database
@@ -77,6 +78,7 @@ const register = async (req, res) => {
       full_name,
       email,
       password: hashedPassword,
+      role,
       username,
       phone_number,
       address,
@@ -131,7 +133,7 @@ const updateUser = async (req, res) => {
   const userId = req.params.id;
 
   // Extract user information from the request body
-  const { full_name, email, password, username, phone_number, address } = req.body;
+  const { full_name, email, password, username, role, phone_number, address } = req.body;
 
   try {
     // Find the user by their ID using Sequelize's findByPk method
@@ -145,6 +147,7 @@ const updateUser = async (req, res) => {
     user.full_name = full_name;
     user.email = email;
     user.username = username;
+    user.role = role;
     user.phone_number = phone_number;
     user.address = address;
 

@@ -10,5 +10,10 @@ const STATUS = {
     INACTIVE: "N"  // Indicates that the user account is inactive
 }
 
+const ROLE = {
+    ADMIN: "admin",
+    USER: "user"
+}
+
 // Export the defined constants for use in other parts of your application
-module.exports = { IN_STOCK, STATUS };
+module.exports = { IN_STOCK, STATUS, ROLE };

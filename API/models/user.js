@@ -36,6 +36,11 @@ const User = db.define('User', {
     type: DataTypes.STRING,
   },
 
+  role: {
+    type: DataTypes.STRING,
+    defaultValue: 'user',
+  },
+
   // Define the 'phone_number' field with type STRING
   phone_number: {
     type: DataTypes.STRING,
@@ -46,8 +51,8 @@ const User = db.define('User', {
     type: DataTypes.STRING,
   },
 
-  // Define the 'isactive' field with type STRING, default value is 'Y' (assuming true or available)
-  isactive: {
+  // Define the 'is_active' field with type STRING, default value is 'Y' (assuming true or available)
+  is_active: {
     type: DataTypes.STRING,
     allowNull: false,
     defaultValue: 'Y',

@@ -5,6 +5,9 @@ const router = express.Router();
 // Import the gameController module for handling game-related routes
 const gameController = require('../controllers/gameController');
 
+// Import auth middlware
+const { protect, admin } = require('../middleware/authMiddleware');
+
 // Import multer for handling file uploads
 const { storage } = require('../utils/multer');
 const multer = require('multer');
@@ -24,13 +27,13 @@ router.post('/upload', multerMiddleware.single('picture'), (req, res) => {
 });
 
 // Route to create a new game, including file upload using multerMiddleware
-router.post('/', multerMiddleware.single('picture'), gameController.createGame);
+router.post('/', [protect, admin, multerMiddleware.single('picture')], gameController.createGame);
 
 // Route to update an existing game
-router.put('/:id', gameController.updateGame);
+router.put('/:id', protect, gameController.updateGame);
 
 // Route to delete a game by ID
-router.delete('/:id', gameController.deleteGame);
+router.delete('/:id', protect, gameController.deleteGame);
 
 // Export the router for use in other parts of your application
 module.exports = router;

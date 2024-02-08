@@ -1,5 +1,6 @@
 // Import the Game model from the '../models/game' file
 const Game = require('../models/game');
+const asyncHandler = require('express-async-handler');
 
 // Define a function to get all games
 const getAllGames = async (req, res) => {
@@ -36,9 +37,9 @@ const getGameById = async (req, res) => {
 };
 
 // Define a function to create a new game
-const createGame = async (req, res) => {
+const createGame = asyncHandler(async (req, res) => {
   // Extract relevant data from the request body
-  const { name, description, quantity, price, isactive, user_id } = req.body;
+  const { name, description, quantity, price, is_active } = req.body;
 
   // Initialize the 'picture' variable with an empty string
   let picture = '';
@@ -56,8 +57,8 @@ const createGame = async (req, res) => {
       picture,
       quantity,
       price,
-      isactive,
-      user_id,
+      is_active,
+      user_id : req.user.id,
     });
     // Send the created game as a JSON response with a 201 Created status
     res.status(201).json(game);
@@ -66,15 +67,15 @@ const createGame = async (req, res) => {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-};
+});
 
 // Define a function to update an existing game
-const updateGame = async (req, res) => {
+const updateGame = asyncHandler(async (req, res) => {
   // Extract the game ID from the request parameters
   const gameId = req.params.id;
 
   // Extract relevant data from the request body
-  const { name, description, picture, quantity, price, isactive } = req.body;
+  const { name, description, picture, quantity, price, is_active } = req.body;
 
   try {
     // Find the game by its ID using Sequelize's findByPk method
@@ -91,7 +92,7 @@ const updateGame = async (req, res) => {
     game.picture = picture;
     game.quantity = quantity;
     game.price = price;
-    game.isactive = isactive;
+    game.is_active = is_active;
 
     // Save the updated game to the database
     await game.save();
@@ -103,7 +104,7 @@ const updateGame = async (req, res) => {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-};
+});
 
 // Define a function to delete a game by its ID
 const deleteGame = async (req, res) => {

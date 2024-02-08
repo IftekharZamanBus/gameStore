@@ -7,6 +7,9 @@ const dotenv = require('dotenv');
 const gameRoutes = require('./routes/gameRoutes');
 const userRoutes = require('./routes/userRoutes');
 
+// Import middleware
+const {errorHandler} = require('./middleware/errorMiddleware');
+
 // Load environment variables from .env file
 dotenv.config();
 
@@ -33,10 +36,7 @@ app.use('/api/games', gameRoutes);
 app.use('/api/users', userRoutes);
 
 // Error handling middleware - log errors and send a generic 500 Internal Server Error response
-app.use((err, req, res, next) => {
-  console.error('Error:', err);
-  res.status(500).json({ error: 'Internal server error' });
-});
+app.use(errorHandler);
 
 // Start the server and listen on the specified port
 app.listen(port, () => {

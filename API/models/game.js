@@ -42,8 +42,8 @@ const Game = db.define('Game', {
     allowNull: false,
   },
 
-  // Define the 'isactive' field with type STRING, default value is 'Y' (assuming true or available)
-  isactive: {
+  // Define the 'is_active' field with type STRING, default value is 'Y' (assuming true or available)
+  is_active: {
     type: DataTypes.STRING,
     allowNull: false,
     defaultValue: 'Y',

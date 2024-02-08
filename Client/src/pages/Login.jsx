@@ -1,10 +1,11 @@
-// Import necessary modules and components from React and ant-design library
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
-// Define the functional component named Login
 function Login() {
-  // Style definitions for layout and appearance
+  const [user, setUser] = useState({});
+  const navigate = useNavigate();
+
   const containerStyle = {
     display: 'flex',
     justifyContent: 'center',
@@ -27,60 +28,36 @@ function Login() {
     marginBottom: '20px',
   };
 
-  const labelCol = {
-    span: 24,
-    style: {
-      textAlign: 'center',
-    },
-  };
-
-  const wrapperCol = {
-    span: 24,
-  };
-
-  const buttonCol = {
-    span: 24,
-    textAlign: 'center', // Center the button
-  };
-
-  // Handler for form submission
   const onFinish = (values) => {
-    console.log('Received values:', values);
-    // Handle login logic here
+    // Assuming correct credentials for simplicity
+    setUser(values);
+
+    // Navigate to the user profile page
+    navigate('/userprofile');
   };
 
-  // JSX structure for the Login component
   return (
     <div style={containerStyle}>
       <div style={formStyle}>
-        {/* Form component for user login */}
         <h2 style={headerStyle}>Login</h2>
-        <Form name="loginForm" onFinish={onFinish} labelCol={labelCol} wrapperCol={wrapperCol}>
-          {/* Input field for email */}
+        <Form name="loginForm" onFinish={onFinish}>
           <Form.Item
             label="Email"
             name="email"
             rules={[{ required: true, message: 'Please input your email!' }]}
           >
-            <Input placeholder="Email" style={{ textAlign: 'left' }} />
+            <Input placeholder="Email" />
           </Form.Item>
 
-          {/* Input field for password */}
           <Form.Item
             label="Password"
             name="password"
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
-            <Input.Password placeholder="Password" style={{ textAlign: 'center' }} />
+            <Input.Password placeholder="Password" />
           </Form.Item>
 
-          {/* Link for password reset */}
-          <Form.Item>
-            Forgot your password? Click <a href="/resetpassword">Here</a>.
-          </Form.Item>
-
-          {/* Submit button */}
-          <Form.Item wrapperCol={buttonCol}>
+          <Form.Item wrapperCol={{ span: 24, textAlign: 'center' }}>
             <Button type="primary" htmlType="submit">
               Login
             </Button>
@@ -91,5 +68,4 @@ function Login() {
   );
 }
 
-// Export the Login component as the default export of this module
 export default Login;

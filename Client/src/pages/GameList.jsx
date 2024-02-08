@@ -32,17 +32,6 @@ function GameList() {
   // JSX structure for the GameList component
   return (
     <div>
-      {/* Search bar section */}
-      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-        {/* Input component for searching games */}
-        <Input
-          type="text"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={handleInputChange}
-          style={{ marginBottom: '10px' }}
-        />
-      </div>
 
       {/* List of game cards section */}
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>

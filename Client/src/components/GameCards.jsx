@@ -119,7 +119,7 @@ function GameCards() {
             game.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
             game.quantity.toString().includes(searchTerm.toLowerCase()) ||
             game.price.toString().includes(searchTerm.toLowerCase()) ||
-            String(game.isactive).toLowerCase().includes(searchTerm.toLowerCase())
+            String(game.is_active).toLowerCase().includes(searchTerm.toLowerCase())
           )
           .map((game) => (
             // Individual game card
@@ -193,16 +193,16 @@ function GameCards() {
                 {/* Display either a select dropdown for editing or the game availability */}
                 {editedGames[game.id].isEditing ? (
                   <Select
-                    value={editedGames[game.id].isactive === IN_STOCK.YES ? 'In Stock' : 'Out of Stock'}
+                    value={editedGames[game.id].is_active === IN_STOCK.YES ? 'In Stock' : 'Out of Stock'}
                     onChange={(value) =>
-                      handleEditChange(game.id, 'isactive', value === IN_STOCK.YES ? true : false)
+                      handleEditChange(game.id, 'is_active', value === IN_STOCK.YES ? true : false)
                     }
                   >
                     <Option value={IN_STOCK.YES}>In Stock</Option>
                     <Option value={IN_STOCK.NO}>Out of Stock</Option>
                   </Select>
                 ) : (
-                  String(game.isactive) === IN_STOCK.YES ? 'In Stock' : 'Out of Stock'
+                  String(game.is_active) === IN_STOCK.YES ? 'In Stock' : 'Out of Stock'
                 )}
               </p>
               {/* Buttons for saving changes, editing, and deleting */}

@@ -16,16 +16,16 @@ router.get('/', userController.getAllUsers);
 router.get('/:id', userController.getUserById);
 
 // Route to register a new user
-router.post('/register', [protect, admin,], userController.register);
+router.post('/register', userController.register);
 
 // Route to handle user login
-router.post('/login', [protect, admin,], userController.login);
+router.post('/login',userController.login);
 
 // Route to update an existing user
-router.put('/:id', [protect, admin,], userController.updateUser);
+router.put('/:id', [protect], userController.updateUser);
 
 // Route to delete a user by ID
-router.delete('/:id', [protect, admin, ], userController.deleteUser);
+router.delete('/:id', [protect, admin], userController.deleteUser);
 
 // Export the router for use in other parts of your application
 module.exports = router;

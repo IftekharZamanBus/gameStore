@@ -30,10 +30,10 @@ router.post('/upload', multerMiddleware.single('picture'), (req, res) => {
 router.post('/', [protect, admin, multerMiddleware.single('picture')], gameController.createGame);
 
 // Route to update an existing game
-router.put('/:id', [protect, admin,], gameController.updateGame);
+router.put('/:id', [protect, admin], gameController.updateGame);
 
 // Route to delete a game by ID
-router.delete('/:id', [protect, admin,], gameController.deleteGame);
+router.delete('/:id', [protect, admin], gameController.deleteGame);
 
 // Export the router for use in other parts of your application
 module.exports = router;

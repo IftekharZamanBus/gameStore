@@ -1,9 +1,15 @@
 // Import necessary modules and components from React, antd, react-router-dom, and axios
-import React from 'react';
-import { Form, Input, Button } from 'antd';
+import React, {useContext} from 'react';
+import { Form, Input, Button, message } from 'antd';
+import { post } from '../api/services';
+import { AuthContext } from '../context/auth';
+import { useNavigate } from 'react-router-dom';
 
 // Define the functional component named Login
 function Login() {
+  const [form] = Form.useForm();
+  const context = useContext(AuthContext);
+  const navigate = useNavigate();
   // Styles for layout and elements
   const containerStyle = {
     display: 'flex',
@@ -39,6 +45,26 @@ function Login() {
     span: 24,
   };
 
+  const onFinish = async (values) => {
+    console.log('Success:', values);
+    try {
+      const response = await post(`/api/users/login`, values);
+      if(response?.token) {
+        form.resetFields();
+        message.success('Logged in successfully');
+        localStorage.setItem('user', JSON.stringify(response));
+        context.login(response);
+        window.location.href = '/';
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  }
+
 
   // JSX structure for the Login component
   return (
@@ -48,7 +74,7 @@ function Login() {
         <h2 style={headerStyle}>Login</h2>
 
         {/* Ant Design Form component */}
-        <Form name="loginForm" labelCol={labelCol} wrapperCol={wrapperCol}>
+        <Form form={form} name="loginForm" labelCol={labelCol} wrapperCol={wrapperCol} onFinish={onFinish} onFinishFailed={onFinishFailed}>
 
           {/* Input for email */}
           <Form.Item

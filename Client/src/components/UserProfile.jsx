@@ -1,21 +1,31 @@
-import React from 'react';
+import React from "react";
+import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import { Tag } from "antd";
 
-function UserProfile({ user }) {
+function UserProfile({ userProfile }) {
   return (
-    <div>
+    <>
       <h2>User Profile</h2>
-      {user && (
-        <div>
-            <p>Full Name: {user.full_name}</p>
-            <p>Email: {user.email}</p>
-            <p>Password: {user.password}</p>
-            <p>Username: {user.username}</p>
-            <p>Phone Number: {user.phone_number}</p>
-            <p>Address: {user.address}</p>
-            <p>Is Active?: {user.is_active}</p>
-        </div>
-      )}
-    </div>
+      <div>
+        <p>Full Name: {userProfile?.full_name}</p>
+        <p>Email: {userProfile?.email}</p>
+        <p>Username: {userProfile?.username}</p>
+        <p>Phone Number: {userProfile?.phone_number}</p>
+        <p>Address: {userProfile?.address}</p>
+        <p>
+          Is Active:{" "}
+          {userProfile?.is_active === "Y" ? (
+            <Tag icon={<CheckCircleOutlined />} color="success">
+              Active
+            </Tag>
+          ) : (
+            <Tag icon={<CloseCircleOutlined />} color="error">
+              Inactive
+            </Tag>
+          )}
+        </p>
+      </div>
+    </>
   );
 }
 

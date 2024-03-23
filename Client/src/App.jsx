@@ -28,6 +28,7 @@ import Profile from "./pages/Profile";
 import ResetPassword from "./pages/ResetPassword";
 import UserProfile from "./components/UserProfile";
 import { AuthProvider, AuthContext } from "./context/auth";
+import UserList from "./components/UserList";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -121,7 +122,7 @@ function App() {
                   <Tooltip title="Profile">
                     <li>
                       <Button style={buttonStyle}>
-                        <Link to="/profile" style={{ ...buttonStyle }}>
+                        <Link to={loggedInUser?.role === 'admin' ? '/users' : '/profile'} style={{ ...buttonStyle }}>
                           <UserOutlined />
                         </Link>
                       </Button>
@@ -149,6 +150,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/users" element={<UserList />} />
             <Route path="/resetpassword" element={<ResetPassword />} />
             <Route path="/userprofile" element={<UserProfile />} />
           </Routes>

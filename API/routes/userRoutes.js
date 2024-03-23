@@ -13,7 +13,7 @@ const { protect, admin } = require('../middleware/authMiddleware');
 router.get('/', userController.getAllUsers);
 
 // Route to get a specific user by ID
-router.get('/:id', userController.getUserById);
+router.get('/:id', [protect], userController.getUserById);
 
 // Route to register a new user
 router.post('/register', userController.register);

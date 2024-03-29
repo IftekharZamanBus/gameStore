@@ -85,60 +85,86 @@ function App() {
                 </li>
               </Tooltip>
 
-              {!loggedInUser?.token && (
-                <>
-                  <Tooltip title="Login">
-                    <li>
-                      <Button style={buttonStyle}>
-                        <Link to="/login" style={{ ...buttonStyle }}>
-                          <LoginOutlined />
-                        </Link>
-                      </Button>
-                    </li>
-                  </Tooltip>
-                  <Tooltip title="Signup">
-                    <li>
-                      <Button style={buttonStyle}>
-                        <Link to="/signup" style={{ ...buttonStyle }}>
-                          <UserAddOutlined />
-                        </Link>
-                      </Button>
-                    </li>
-                  </Tooltip>
-                </>
-              )}
+{/* Not Logged In: Can only see the login and signup buttons */}
+{!loggedInUser?.token && (
+  <>
+    <Tooltip title="Login">
+      <li>
+        <Button style={buttonStyle}>
+          <Link to="/login" style={{ ...buttonStyle }}>
+            <LoginOutlined />
+          </Link>
+        </Button>
+      </li>
+    </Tooltip>
+    <Tooltip title="Signup">
+      <li>
+        <Button style={buttonStyle}>
+          <Link to="/signup" style={{ ...buttonStyle }}>
+            <UserAddOutlined />
+          </Link>
+        </Button>
+      </li>
+    </Tooltip>
+  </>
+)}
 
-              {loggedInUser?.token && (
-                <>
-                  <Tooltip title="Add Game">
-                    <li>
-                      <Button style={buttonStyle}>
-                        <Link to="/add" style={{ ...buttonStyle }}>
-                          <PlusOutlined />
-                        </Link>
-                      </Button>
-                    </li>
-                  </Tooltip>
-                  <Tooltip title="Profile">
-                    <li>
-                      <Button style={buttonStyle}>
-                        <Link to={loggedInUser?.role === 'admin' ? '/users' : '/profile'} style={{ ...buttonStyle }}>
-                          <UserOutlined />
-                        </Link>
-                      </Button>
-                    </li>
-                  </Tooltip>
-                  <Tooltip title="Logout">
-                    <li>
-                      <Button style={buttonStyle} onClick={handleLogout}>
-                        <Link to="#" style={{ ...buttonStyle }}>
-                          <LogoutOutlined />
-                        </Link>
-                      </Button>
-                    </li>
-                  </Tooltip>                  
-                </>
-              )}
+{/* Logged In but not an Admin: Can only see Logout button and profile button */}
+{loggedInUser?.token && loggedInUser?.role !== 'admin' && (
+  <>
+    <Tooltip title="Profile">
+      <li>
+        <Button style={buttonStyle}>
+          <Link to="/profile" style={{ ...buttonStyle }}>
+            <UserOutlined />
+          </Link>
+        </Button>
+      </li>
+    </Tooltip>
+    <Tooltip title="Logout">
+      <li>
+        <Button style={buttonStyle} onClick={handleLogout}>
+          <Link to="#" style={{ ...buttonStyle }}>
+            <LogoutOutlined />
+          </Link>
+        </Button>
+      </li>
+    </Tooltip>
+  </>
+)}
+
+{/* Logged in AND Admin: Can see every single button */}
+{loggedInUser?.token && loggedInUser?.role === 'admin' && (
+  <>
+    <Tooltip title="Add Game">
+      <li>
+        <Button style={buttonStyle}>
+          <Link to="/add" style={{ ...buttonStyle }}>
+            <PlusOutlined />
+          </Link>
+        </Button>
+      </li>
+    </Tooltip>
+    <Tooltip title="Profile">
+      <li>
+        <Button style={buttonStyle}>
+          <Link to="/users" style={{ ...buttonStyle }}>
+            <UserOutlined />
+          </Link>
+        </Button>
+      </li>
+    </Tooltip>
+    <Tooltip title="Logout">
+      <li>
+        <Button style={buttonStyle} onClick={handleLogout}>
+          <Link to="#" style={{ ...buttonStyle }}>
+            <LogoutOutlined />
+          </Link>
+        </Button>
+      </li>
+    </Tooltip>
+  </>
+)}
             </ul>
           </nav>
 

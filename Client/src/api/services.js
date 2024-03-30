@@ -30,7 +30,7 @@ export const post = async (url, data) => {
     const response = await axiosInstance.post(url, data);
     return response.data;
   } catch (error) {
-    console.error(`Unable to POST to ${url} due to following error: ${error}`);
+    console.error(`Unable to POST to ${url}:`, error.response.data);
     throw error;
   }
 };

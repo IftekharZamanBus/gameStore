@@ -1,4 +1,3 @@
-// App.js
 import React, { useState, useContext, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -29,6 +28,7 @@ import ResetPassword from "./pages/ResetPassword";
 import UserProfile from "./components/UserProfile";
 import { AuthProvider, AuthContext } from "./context/auth";
 import UserList from "./components/UserList";
+import GameCards from "./components/GameCards"; // Import GameCards here
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -85,91 +85,91 @@ function App() {
                 </li>
               </Tooltip>
 
-{/* Not Logged In: Can only see the login and signup buttons */}
-{!loggedInUser?.token && (
-  <>
-    <Tooltip title="Login">
-      <li>
-        <Button style={buttonStyle}>
-          <Link to="/login" style={{ ...buttonStyle }}>
-            <LoginOutlined />
-          </Link>
-        </Button>
-      </li>
-    </Tooltip>
-    <Tooltip title="Signup">
-      <li>
-        <Button style={buttonStyle}>
-          <Link to="/signup" style={{ ...buttonStyle }}>
-            <UserAddOutlined />
-          </Link>
-        </Button>
-      </li>
-    </Tooltip>
-  </>
-)}
+              {!loggedInUser?.token && (
+                <>
+                  <Tooltip title="Login">
+                    <li>
+                      <Button style={buttonStyle}>
+                        <Link to="/login" style={{ ...buttonStyle }}>
+                          <LoginOutlined />
+                        </Link>
+                      </Button>
+                    </li>
+                  </Tooltip>
+                  <Tooltip title="Signup">
+                    <li>
+                      <Button style={buttonStyle}>
+                        <Link to="/signup" style={{ ...buttonStyle }}>
+                          <UserAddOutlined />
+                        </Link>
+                      </Button>
+                    </li>
+                  </Tooltip>
+                </>
+              )}
 
-{/* Logged In but not an Admin: Can only see Logout button and profile button */}
-{loggedInUser?.token && loggedInUser?.role !== 'admin' && (
-  <>
-    <Tooltip title="Profile">
-      <li>
-        <Button style={buttonStyle}>
-          <Link to="/profile" style={{ ...buttonStyle }}>
-            <UserOutlined />
-          </Link>
-        </Button>
-      </li>
-    </Tooltip>
-    <Tooltip title="Logout">
-      <li>
-        <Button style={buttonStyle} onClick={handleLogout}>
-          <Link to="#" style={{ ...buttonStyle }}>
-            <LogoutOutlined />
-          </Link>
-        </Button>
-      </li>
-    </Tooltip>
-  </>
-)}
+              {loggedInUser?.token && loggedInUser?.role !== 'admin' && (
+                <>
+                  <Tooltip title="Profile">
+                    <li>
+                      <Button style={buttonStyle}>
+                        <Link to="/profile" style={{ ...buttonStyle }}>
+                          <UserOutlined />
+                        </Link>
+                      </Button>
+                    </li>
+                  </Tooltip>
+                  <Tooltip title="Logout">
+                    <li>
+                      <Button style={buttonStyle} onClick={handleLogout}>
+                        <Link to="#" style={{ ...buttonStyle }}>
+                          <LogoutOutlined />
+                        </Link>
+                      </Button>
+                    </li>
+                  </Tooltip>
+                </>
+              )}
 
-{/* Logged in AND Admin: Can see every single button */}
-{loggedInUser?.token && loggedInUser?.role === 'admin' && (
-  <>
-    <Tooltip title="Add Game">
-      <li>
-        <Button style={buttonStyle}>
-          <Link to="/add" style={{ ...buttonStyle }}>
-            <PlusOutlined />
-          </Link>
-        </Button>
-      </li>
-    </Tooltip>
-    <Tooltip title="Profile">
-      <li>
-        <Button style={buttonStyle}>
-          <Link to="/users" style={{ ...buttonStyle }}>
-            <UserOutlined />
-          </Link>
-        </Button>
-      </li>
-    </Tooltip>
-    <Tooltip title="Logout">
-      <li>
-        <Button style={buttonStyle} onClick={handleLogout}>
-          <Link to="#" style={{ ...buttonStyle }}>
-            <LogoutOutlined />
-          </Link>
-        </Button>
-      </li>
-    </Tooltip>
-  </>
-)}
+              {loggedInUser?.token && loggedInUser?.role === 'admin' && (
+                <>
+                  <Tooltip title="Add Game">
+                    <li>
+                      <Button style={buttonStyle}>
+                        <Link to="/add" style={{ ...buttonStyle }}>
+                          <PlusOutlined />
+                        </Link>
+                      </Button>
+                    </li>
+                  </Tooltip>
+                  <Tooltip title="Profile">
+                    <li>
+                      <Button style={buttonStyle}>
+                        <Link to="/users" style={{ ...buttonStyle }}>
+                          <UserOutlined />
+                        </Link>
+                      </Button>
+                    </li>
+                  </Tooltip>
+                  <Tooltip title="Logout">
+                    <li>
+                      <Button style={buttonStyle} onClick={handleLogout}>
+                        <Link to="#" style={{ ...buttonStyle }}>
+                          <LogoutOutlined />
+                        </Link>
+                      </Button>
+                    </li>
+                  </Tooltip>
+                </>
+              )}
             </ul>
           </nav>
 
+          {/* Render GameCards here */}
+          <GameCards loggedInUser={loggedInUser} games={[]} searchTerm={searchTerm} />
+
           <Routes>
-            <Route path="/" element={<GameList searchTerm={searchTerm} />} />
+            <Route path="/" element={<GameList />} />
             <Route path="/add" element={<AddGame />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />

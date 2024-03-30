@@ -18,6 +18,7 @@ function GameCards({ loggedInUser }) {
 
   // useEffect hook to fetch games from the API on component mount
   useEffect(() => {
+    console.log("Hello")
     const fetchGames = async () => {
       try {
         const response = await axios.get('http://localhost:5050/api/games');

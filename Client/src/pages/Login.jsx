@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 // Define the functional component named Login
 function Login() {
+  console.log("Fixed Login Issue, due to seeders data import");
   const [form] = Form.useForm();
   const context = useContext(AuthContext);
   const navigate = useNavigate();

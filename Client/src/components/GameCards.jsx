@@ -10,7 +10,7 @@ const { Meta } = Card;
 const { Option } = Select;
 
 // Define the functional component named GameCards
-function GameCards({ loggedInUser }) {
+function GameCards() {
   // State variables using the useState hook
   const [games, setGames] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -18,11 +18,9 @@ function GameCards({ loggedInUser }) {
 
   // useEffect hook to fetch games from the API on component mount
   useEffect(() => {
-    
     const fetchGames = async () => {
       try {
         const response = await axios.get('http://localhost:5050/api/games');
-        console.log("Hello")
         // Set initial state for games and editedGames using the API response
         setGames(response.data);
         setEditedGames(
@@ -209,37 +207,33 @@ function GameCards({ loggedInUser }) {
               </p>
               {/* Buttons for saving changes, editing, and deleting */}
               <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                {loggedInUser?.role === 'admin' && ( // Only render edit and delete buttons if the user is an admin
-                  <>
-                    {editedGames[game.id].isEditing ? (
-                      <Tooltip title="Save changes">
-                        <Button
-                          style={{ backgroundColor: 'blue', color: 'white' }}
-                          onClick={() => saveChanges(game.id)}
-                        >
-                          Save
-                        </Button>
-                      </Tooltip>
-                    ) : (
-                      <Tooltip title="Edit game">
-                        <Button
-                          style={{ backgroundColor: 'white', color: 'black' }}
-                          onClick={() => toggleEditMode(game.id)}
-                        >
-                          {<EditOutlined />}
-                        </Button>
-                      </Tooltip>
-                    )}
-                    <Tooltip title="Delete game">
-                      <Button
-                        style={{ backgroundColor: '#3655b3', color: 'white' }}
-                        onClick={() => deleteGame(game.id)}
-                      >
-                        {<DeleteOutlined />}
-                      </Button>
-                    </Tooltip>
-                  </>
+                {editedGames[game.id].isEditing ? (
+                  <Tooltip title="Save changes">
+                    <Button
+                      style={{ backgroundColor: 'blue', color: 'white' }}
+                      onClick={() => saveChanges(game.id)}
+                    >
+                      Save
+                    </Button>
+                  </Tooltip>
+                ) : (
+                  <Tooltip title="Edit game">
+                    <Button
+                      style={{ backgroundColor: 'white', color: 'black' }}
+                      onClick={() => toggleEditMode(game.id)}
+                    >
+                      {<EditOutlined />}
+                    </Button>
+                  </Tooltip>
                 )}
+                <Tooltip title="Delete game">
+                  <Button
+                    style={{ backgroundColor: '#3655b3', color: 'white' }}
+                    onClick={() => deleteGame(game.id)}
+                  >
+                    {<DeleteOutlined />}
+                  </Button>
+                </Tooltip>
               </div>
             </Card>
           ))}

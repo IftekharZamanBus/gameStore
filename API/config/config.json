@@ -2,7 +2,7 @@
   "_comment1": "Development is my main configuration object, it includes my database configuration stuff",
   "development": {
     "username": "postgres",
-    "password": "Draco_3111",
+    "password": "Adrian_8231",
     "database": "gamestore",
     "host": "127.0.0.1",
     "dialect": "postgres"

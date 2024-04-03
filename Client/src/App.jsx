@@ -122,20 +122,20 @@ function App() {
                 <>
                   <Tooltip title="Profile">
                     <li>
-                      <Button style={buttonStyle}>
-                        <Link to="/profile" style={{ ...buttonStyle }}>
+                      <Link to="/profile">
+                        <Button style={buttonStyle}>
                           <UserOutlined />
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                     </li>
                   </Tooltip>
                   <Tooltip title="Logout">
                     <li>
-                      <Button style={buttonStyle} onClick={handleLogout}>
-                        <Link to="#" style={{ ...buttonStyle }}>
+                      <Link to="#">
+                        <Button style={buttonStyle} onClick={handleLogout}>
                           <LogoutOutlined />
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                     </li>
                   </Tooltip>
                 </>
@@ -146,29 +146,29 @@ function App() {
                 <>
                   <Tooltip title="Add Game">
                     <li>
-                      <Button style={buttonStyle}>
-                        <Link to="/add" style={{ ...buttonStyle }}>
+                      <Link to="/add">
+                        <Button style={buttonStyle}>
                           <PlusOutlined />
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                     </li>
                   </Tooltip>
                   <Tooltip title="Profile">
                     <li>
-                      <Button style={buttonStyle}>
-                        <Link to="/users" style={{ ...buttonStyle }}>
+                      <Link to="/users">
+                        <Button style={buttonStyle}>
                           <UserOutlined />
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                     </li>
                   </Tooltip>
                   <Tooltip title="Logout">
                     <li>
-                      <Button style={buttonStyle} onClick={handleLogout}>
-                        <Link to="#" style={{ ...buttonStyle }}>
+                      <Link to="#">
+                        <Button style={buttonStyle} onClick={handleLogout}>
                           <LogoutOutlined />
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                     </li>
                   </Tooltip>
                 </>

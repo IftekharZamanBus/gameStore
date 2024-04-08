@@ -53,6 +53,8 @@ const UserList = () => {
     const [users, setUsers] = useState([]);
     const [originalUsers, setOriginalUsers] = useState([]);
 
+    console.log("Worked on Search Bar")
+
     useEffect(() => {
         let isMounted = true;
         const fetchUsers = async () => {

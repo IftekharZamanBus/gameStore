@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react'
-import { Table, Space, Input, message } from 'antd'
+import React, { useEffect, useState } from 'react';
+import { Table, Input } from 'antd';
 import { get } from '../api/services';
 
 const { Search } = Input;
@@ -47,62 +47,67 @@ const columns = [
         key: 'is_active',
         sorter: (a, b) => a.is_active.localeCompare(b.is_active),
     },
-]
+];
 
 const UserList = () => {
-    const [users, setUsers] = useState([])
-  
-    const handleSearch = (value, _e, info) => {
-        console.log('_e', _e)
-        console.log('value', value)
-        console.log('info', info)
-    }
+    const [users, setUsers] = useState([]);
+    const [originalUsers, setOriginalUsers] = useState([]);
 
     useEffect(() => {
-        let isMounted = true
+        let isMounted = true;
         const fetchUsers = async () => {
             try {
-                const response = await get('/api/users')
-                let data = response.map(user => {
-                    return {
-                        key: user.id,
-                        full_name: user.full_name,
-                        email: user.email,
-                        username: user.username,
-                        phone_number: user.phone_number,
-                        address: user.address,
-                        role: user.role,
-                        is_active: user.is_active === 'Y' ? 'Active' : 'Inactive'
-                    }
-                })
-                setUsers(data)
+                const response = await get('/api/users');
+                let data = response.map(user => ({
+                    key: user.id,
+                    full_name: user.full_name,
+                    email: user.email,
+                    username: user.username,
+                    phone_number: user.phone_number,
+                    address: user.address,
+                    role: user.role,
+                    is_active: user.is_active === 'Y' ? 'Active' : 'Inactive'
+                }));
+                setUsers(data);
+                setOriginalUsers(data);
             } catch (error) {
-                if(isMounted) {
-                    console.error('Error fetching users:', error)
+                if (isMounted) {
+                    console.error('Error fetching users:', error);
                 }
-                
             }
-        }
+        };
 
         fetchUsers();
 
         return () => {
             isMounted = false;
-          };
-    }, [])
-    
-  return (
-    <div>
-        <Search
-            placeholder="Search users..."
-            onSearch={handleSearch}
-            style={{ width: "100%" }}
-            enterButton
-            allowClear
-        />
-        <Table columns={columns} dataSource={users} />
-    </div>
-  )
-}
+        };
+    }, []);
 
-export default UserList
+    const handleSearch = (value) => {
+        const filteredUsers = originalUsers.filter(user =>
+            user.full_name.toLowerCase().includes(value.toLowerCase())
+        );
+        setUsers(filteredUsers);
+    };
+
+    const handleClear = () => {
+        setUsers(originalUsers);
+    };
+
+    return (
+        <div>
+            <Search
+                placeholder="Search users by first name..."
+                onSearch={handleSearch}
+                onChange={(e) => e.target.value ? handleSearch(e.target.value) : handleClear()}
+                style={{ width: "100%" }}
+                enterButton
+                allowClear
+            />
+            <Table columns={columns} dataSource={users} />
+        </div>
+    );
+};
+
+export default UserList;

@@ -62,7 +62,7 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <div className="App" style={{ textAlign: 'center' }}>
+        <div className="App" style={{}}>
           <Navbar handleSearch={handleSearch} />
 
           <nav style={{ marginTop: '10px' }}>

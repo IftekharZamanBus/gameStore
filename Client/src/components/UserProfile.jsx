@@ -5,7 +5,7 @@ import { Tag } from "antd";
 function UserProfile({ userProfile }) {
   return (
     <>
-      <h2>User Profile</h2>
+      <h2 style={{textAlign: 'center'}}>User Profile</h2>
       <div>
         <p>Full Name: {userProfile?.full_name}</p>
         <p>Email: {userProfile?.email}</p>

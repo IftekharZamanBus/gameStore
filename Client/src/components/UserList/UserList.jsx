@@ -185,9 +185,9 @@ const UserList = () => {
 
   const handleDeactivate = async (id) => {
     try {
-      const user = users.find((user) => user.id === id);
+      let user = users.find((user) => user.id === id);
       user.is_active = 'N';
-      await axios.put(`http://localhost:5050/api/users/${id}`, user);
+      await put(`/api/users/${id}`, user);
     } catch (error) {
       console.error('Error deactivating user:', error);
     }

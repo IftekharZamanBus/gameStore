@@ -1,18 +1,18 @@
 // Import the uuid library to generate unique identifiers
-const { v4: uuidv4 } = require("uuid");
+const { v4: uuidv4 } = require('uuid');
 
 // Import the User model from the '../models/user' file
-const User = require("../models/user");
+const User = require('../models/user');
 const asyncHandler = require('express-async-handler');
 
 // Import the bcrypt library for password hashing
-const bcrypt = require("bcryptjs");
+const bcrypt = require('bcryptjs');
 
 // Import constants, including STATUS, from the '../utils/constants' file
-const { STATUS } = require("../utils/constants");
+const { STATUS } = require('../utils/constants');
 
 // Import the generateToken function from the '../utils/generateToken' file
-const generateToken = require("../utils/generateToken");
+const generateToken = require('../utils/generateToken');
 
 // Define a function to handle user login
 const login = asyncHandler(async (req, res) => {
@@ -25,14 +25,16 @@ const login = asyncHandler(async (req, res) => {
   // If no user is found with the given email, return a 400 Bad Request response
   if (!user) {
     return res.status(400).json({
-      error: "Sorry we did not find any user that match with this email address. If you haven't registered, please go through our registration page."
+      error:
+        "Sorry we did not find any user that match with this email address. If you haven't registered, please go through our registration page.",
     });
   }
 
   // Check if the user's account is inactive and return a 400 Bad Request response if it is
   if (user.is_active === STATUS.INACTIVE) {
     return res.status(400).json({
-      error: "Sorry your account is not active. Please contact our customer service."
+      error:
+        'Sorry your account is not active. Please contact our customer service.',
     });
   }
 
@@ -48,25 +50,26 @@ const login = asyncHandler(async (req, res) => {
       phone_number: user.phone_number,
       address: user.address,
       is_active: user.is_active,
-      token: generateToken(user.id)
+      token: generateToken(user.id),
     });
   } else {
     // If the passwords do not match, return a 400 Bad Request response
-    return res.status(400).json({ error: "Invalid email or password." });
+    return res.status(400).json({ error: 'Invalid email or password.' });
   }
 });
 
 // Define a function to handle user registration
 const register = asyncHandler(async (req, res) => {
   // Extract user information from the request body
-  const { full_name, email, password, username, role, phone_number, address } = req.body;
+  const { full_name, email, password, username, role, phone_number, address } =
+    req.body;
 
   try {
     // Check if a user with the provided email already exists in the database
     const userExists = await User.findOne({ where: { email } });
     if (userExists) {
       // If the user already exists, return a 400 Bad Request response
-      return res.status(400).json({ error: "Email already exists" });
+      return res.status(400).json({ error: 'Email already exists' });
     }
 
     // Generate a salt and hash the provided password
@@ -89,8 +92,8 @@ const register = asyncHandler(async (req, res) => {
     res.status(201).json(user);
   } catch (error) {
     // Handle errors by logging them and sending a 500 Internal Server Error response
-    console.error("Error:", error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -134,7 +137,16 @@ const updateUser = asyncHandler(async (req, res) => {
   const userId = req.params.id;
 
   // Extract user information from the request body
-  const { full_name, email, password, username, role, phone_number, address } = req.body;
+  const {
+    full_name,
+    email,
+    password,
+    username,
+    role,
+    phone_number,
+    address,
+    is_active,
+  } = req.body;
 
   try {
     // Find the user by their ID using Sequelize's findByPk method
@@ -151,6 +163,7 @@ const updateUser = asyncHandler(async (req, res) => {
     user.role = role;
     user.phone_number = phone_number;
     user.address = address;
+    user.is_active = is_active;
 
     // If a new password is provided, generate a salt and hash the new password
     if (password) {

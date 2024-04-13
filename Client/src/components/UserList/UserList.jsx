@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import { Table, Input, Form, Popconfirm, Typography, Button } from 'antd';
 import axios from 'axios';
-import { get } from '../../api/services';
+import { get, put } from '../../api/services';
 import './UserList.css';
 const { Search } = Input;
 
@@ -170,7 +170,7 @@ const UserList = () => {
   const saveChanges = async (id) => {
     try {
       const updatedUser = users.find((user) => user.id === id);
-      await axios.put(`http://localhost:5050/api/users/${id}`, updatedUser);
+      await put(`/api/users/${id}`, updatedUser);
       toggleEditMode(id);
     } catch (error) {
       console.error('Error updating user:', error);

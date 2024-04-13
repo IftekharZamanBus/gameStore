@@ -27,7 +27,7 @@ import Profile from './pages/Profile';
 import ResetPassword from './pages/ResetPassword';
 import UserProfile from './components/UserProfile';
 import { AuthProvider, AuthContext } from './context/auth';
-import UserList from './components/UserList';
+import UserList from './components/UserList/UserList';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -117,7 +117,6 @@ function App() {
                 </>
               )}
 
-              {/* Logged In but not an Admin: Can only see Logout button and profile button */}
               {loggedInUser?.token && loggedInUser?.role !== 'admin' && (
                 <>
                   <Tooltip title="Profile">

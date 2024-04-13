@@ -10,7 +10,7 @@ const { Meta } = Card;
 const { Option } = Select;
 
 // Define the functional component named GameCards
-function GameCards() {
+function GameCards( {loggedInUser}) {
   // State variables using the useState hook
   const [games, setGames] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -206,35 +206,41 @@ function GameCards() {
                 )}
               </p>
               {/* Buttons for saving changes, editing, and deleting */}
-              <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                {editedGames[game.id].isEditing ? (
-                  <Tooltip title="Save changes">
-                    <Button
-                      style={{ backgroundColor: 'blue', color: 'white' }}
-                      onClick={() => saveChanges(game.id)}
-                    >
-                      Save
-                    </Button>
-                  </Tooltip>
-                ) : (
-                  <Tooltip title="Edit game">
-                    <Button
-                      style={{ backgroundColor: 'white', color: 'black' }}
-                      onClick={() => toggleEditMode(game.id)}
-                    >
-                      {<EditOutlined />}
-                    </Button>
-                  </Tooltip>
-                )}
-                <Tooltip title="Delete game">
-                  <Button
-                    style={{ backgroundColor: '#3655b3', color: 'white' }}
-                    onClick={() => deleteGame(game.id)}
-                  >
-                    {<DeleteOutlined />}
-                  </Button>
-                </Tooltip>
-              </div>
+<div style={{ display: 'flex', justifyContent: 'space-around' }}>
+  {/* Edit button */}
+  {loggedInUser?.token && loggedInUser?.role === 'admin' && !editedGames[game.id].isEditing && (
+    <Tooltip title="Edit game">
+      <Button
+        style={{ backgroundColor: 'white', color: 'black' }}
+        onClick={() => toggleEditMode(game.id)}
+      >
+        <EditOutlined />
+      </Button>
+    </Tooltip>
+  )}
+  {/* Save button */}
+  {editedGames[game.id].isEditing && (
+    <Tooltip title="Save changes">
+      <Button
+        style={{ backgroundColor: 'blue', color: 'white' }}
+        onClick={() => saveChanges(game.id)}
+      >
+        Save
+      </Button>
+    </Tooltip>
+  )}
+  {/* Delete button */}
+  {loggedInUser?.token && loggedInUser?.role === 'admin' && (
+    <Tooltip title="Delete game">
+      <Button
+        style={{ backgroundColor: '#3655b3', color: 'white' }}
+        onClick={() => deleteGame(game.id)}
+      >
+        <DeleteOutlined />
+      </Button>
+    </Tooltip>
+  )}
+</div>
             </Card>
           ))}
       </div>

@@ -45,11 +45,11 @@ function App() {
     border: 'none',
     borderRadius: '20px',
     margin: '0 10px',
+    width: '5em',
   };
 
   useEffect(() => {
     if (user) setLoggedInUser(user);
-    console.log(user);
   }, [user]);
 
   const handleLogout = () => {
@@ -76,11 +76,14 @@ function App() {
             >
               <Tooltip title="Home">
                 <li>
-                  <Button style={buttonStyle}>
-                    <Link to="/" style={{ ...buttonStyle }}>
+                  <Link to="/">
+                    <Button
+                      onClick={() => console.log('clicked')}
+                      style={buttonStyle}
+                    >
                       <HomeOutlined />
-                    </Link>
-                  </Button>
+                    </Button>
+                  </Link>
                 </li>
               </Tooltip>
 
@@ -89,44 +92,49 @@ function App() {
                 <>
                   <Tooltip title="Login">
                     <li>
-                      <Button style={buttonStyle}>
-                        <Link to="/login" style={{ ...buttonStyle }}>
+                      <Link to="/login">
+                        <Button
+                          onClick={() => console.log('clicked')}
+                          style={buttonStyle}
+                        >
                           <LoginOutlined />
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                     </li>
                   </Tooltip>
                   <Tooltip title="Signup">
                     <li>
-                      <Button style={buttonStyle}>
-                        <Link to="/signup" style={{ ...buttonStyle }}>
+                      <Link to="/signup">
+                        <Button
+                          onClick={() => console.log('clicked')}
+                          style={buttonStyle}
+                        >
                           <UserAddOutlined />
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                     </li>
                   </Tooltip>
                 </>
               )}
 
-              {/* Logged In but not an Admin: Can only see Logout button and profile button */}
               {loggedInUser?.token && loggedInUser?.role !== 'admin' && (
                 <>
                   <Tooltip title="Profile">
                     <li>
-                      <Button style={buttonStyle}>
-                        <Link to="/profile" style={{ ...buttonStyle }}>
+                      <Link to="/profile">
+                        <Button style={buttonStyle}>
                           <UserOutlined />
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                     </li>
                   </Tooltip>
                   <Tooltip title="Logout">
                     <li>
-                      <Button style={buttonStyle} onClick={handleLogout}>
-                        <Link to="#" style={{ ...buttonStyle }}>
+                      <Link to="#">
+                        <Button style={buttonStyle} onClick={handleLogout}>
                           <LogoutOutlined />
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                     </li>
                   </Tooltip>
                 </>
@@ -137,29 +145,29 @@ function App() {
                 <>
                   <Tooltip title="Add Game">
                     <li>
-                      <Button style={buttonStyle}>
-                        <Link to="/add" style={{ ...buttonStyle }}>
+                      <Link to="/add">
+                        <Button style={buttonStyle}>
                           <PlusOutlined />
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                     </li>
                   </Tooltip>
                   <Tooltip title="Profile">
                     <li>
-                      <Button style={buttonStyle}>
-                        <Link to="/users" style={{ ...buttonStyle }}>
+                      <Link to="/users">
+                        <Button style={buttonStyle}>
                           <UserOutlined />
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                     </li>
                   </Tooltip>
                   <Tooltip title="Logout">
                     <li>
-                      <Button style={buttonStyle} onClick={handleLogout}>
-                        <Link to="#" style={{ ...buttonStyle }}>
+                      <Link to="#">
+                        <Button style={buttonStyle} onClick={handleLogout}>
                           <LogoutOutlined />
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                     </li>
                   </Tooltip>
                 </>

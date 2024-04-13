@@ -1,17 +1,17 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Link,
   useLocation,
-} from "react-router-dom";
-import GameList from "./pages/GameList";
-import AddGame from "./pages/AddGame";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
+} from 'react-router-dom';
+import GameList from './pages/GameList';
+import AddGame from './pages/AddGame';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Footer from './components/Footer';
+import Navbar from './components/Navbar';
 import {
   HomeOutlined,
   PlusOutlined,
@@ -19,18 +19,18 @@ import {
   UserAddOutlined,
   UserOutlined,
   LogoutOutlined,
-} from "@ant-design/icons";
-import { Button, Tooltip } from "antd";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Profile from "./pages/Profile";
-import ResetPassword from "./pages/ResetPassword";
-import UserProfile from "./components/UserProfile";
-import { AuthProvider, AuthContext } from "./context/auth";
-import UserList from "./components/UserList";
+} from '@ant-design/icons';
+import { Button, Tooltip } from 'antd';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Profile from './pages/Profile';
+import ResetPassword from './pages/ResetPassword';
+import UserProfile from './components/UserProfile';
+import { AuthProvider, AuthContext } from './context/auth';
+import UserList from './components/UserList/UserList';
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [loggedInUser, setLoggedInUser] = useState(null);
   const { user, logout } = useContext(AuthContext);
 
@@ -39,12 +39,12 @@ function App() {
   };
 
   const buttonStyle = {
-    background: "#4F7942",
-    color: "white",
-    textDecoration: "none",
-    border: "none",
-    borderRadius: "20px",
-    margin: "0 10px",
+    background: '#4F7942',
+    color: 'white',
+    textDecoration: 'none',
+    border: 'none',
+    borderRadius: '20px',
+    margin: '0 10px',
   };
 
   useEffect(() => {
@@ -55,22 +55,22 @@ function App() {
   const handleLogout = () => {
     logout();
     setLoggedInUser(null);
-    localStorage.removeItem("user");
-    window.location.href = "/";
+    localStorage.removeItem('user');
+    window.location.href = '/';
   };
 
   return (
     <Router>
       <AuthProvider>
-        <div className="App" style={{ textAlign: "center" }}>
+        <div className="App" style={{ textAlign: 'center' }}>
           <Navbar handleSearch={handleSearch} />
 
-          <nav style={{ marginTop: "10px" }}>
+          <nav style={{ marginTop: '10px' }}>
             <ul
               style={{
-                display: "flex",
-                justifyContent: "center",
-                listStyle: "none",
+                display: 'flex',
+                justifyContent: 'center',
+                listStyle: 'none',
                 padding: 0,
               }}
             >
@@ -109,7 +109,7 @@ function App() {
               )}
 
               {/* Logged In but not an Admin: Can only see Logout button and profile button */}
-              {loggedInUser?.token && loggedInUser?.role !== "admin" && (
+              {loggedInUser?.token && loggedInUser?.role !== 'admin' && (
                 <>
                   <Tooltip title="Profile">
                     <li>
@@ -133,7 +133,7 @@ function App() {
               )}
 
               {/* Logged in AND Admin: Can see every single button */}
-              {loggedInUser?.token && loggedInUser?.role === "admin" && (
+              {loggedInUser?.token && loggedInUser?.role === 'admin' && (
                 <>
                   <Tooltip title="Add Game">
                     <li>
@@ -168,10 +168,7 @@ function App() {
           </nav>
 
           <Routes>
-            <Route
-              path="/"
-              element={<GameList searchTerm={searchTerm} />}
-            />
+            <Route path="/" element={<GameList searchTerm={searchTerm} />} />
             <Route path="/add" element={<AddGame />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />

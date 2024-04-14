@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import { Table, Input, Form, Popconfirm, Typography, Button } from 'antd';
-import axios from 'axios';
 import { get, put } from '../../api/services';
 import './UserList.css';
+
 const { Search } = Input;
 
 const EditableContext = React.createContext(null);
@@ -103,74 +103,32 @@ const UserList = () => {
   const [users, setUsers] = useState([]);
   const [originalUsers, setOriginalUsers] = useState([]);
 
-  const handleDelete = (id) => {
-    const newUsers = users.filter((item) => item.id !== id);
-    setUsers(newUsers);
-  };
-
-  const handleSave = (row) => {
-    const updatedUsers = users.map((user) => {
-      if (user.id === row.key) {
-        // Assuming 'key' is the unique identifier (id) of the user
-        return { ...user, ...row };
-      }
-      return user;
-    });
-
-    setUsers(updatedUsers);
-  };
-
-  const components = {
-    body: {
-      row: EditableRow,
-      cell: EditableCell,
-    },
-  };
-
-  const handleSearch = (value) => {
-    const filteredUsers = originalUsers.filter((user) =>
-      user.full_name.toLowerCase().includes(value.toLowerCase())
-    );
-    setUsers(filteredUsers);
-  };
-
-  const handleClear = () => {
-    setUsers(originalUsers);
-  };
-
   useEffect(() => {
-    let isMounted = true;
     const fetchUsers = async () => {
       try {
         const response = await get('/api/users');
         const data = response.map((user) => ({ ...user, isEditing: false }));
         setUsers(data);
+        setOriginalUsers(data);
       } catch (error) {
-        if (isMounted) {
-          console.error('Error fetching users:', error);
-        }
+        console.error('Error fetching users:', error);
       }
     };
 
     fetchUsers();
-
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
-  const handleEditChange = (id, field, value) => {
-    const updatedUsers = users.map((user) =>
-      user.id === id ? { ...user, [field]: value } : user
-    );
-    setUsers(updatedUsers);
+  const handleSearch = (value) => {
+    const filteredUsers = originalUsers.filter((user) => {
+      return Object.values(user).some((fieldValue) =>
+        fieldValue.toString().toLowerCase().includes(value.toLowerCase())
+      );
+    });
+    setUsers(filteredUsers);
   };
 
-  const toggleEditMode = (id) => {
-    const updatedUsers = users.map((user) =>
-      user.id === id ? { ...user, isEditing: !user.isEditing } : user
-    );
-    setUsers(updatedUsers);
+  const handleClear = () => {
+    setUsers(originalUsers);
   };
 
   const saveChanges = async (id) => {
@@ -191,6 +149,20 @@ const UserList = () => {
     } catch (error) {
       console.error('Error deactivating user:', error);
     }
+  };
+
+  const toggleEditMode = (id) => {
+    const updatedUsers = users.map((user) =>
+      user.id === id ? { ...user, isEditing: !user.isEditing } : user
+    );
+    setUsers(updatedUsers);
+  };
+
+  const handleEditChange = (id, field, value) => {
+    const updatedUsers = users.map((user) =>
+      user.id === id ? { ...user, [field]: value } : user
+    );
+    setUsers(updatedUsers);
   };
 
   const renderEditableCell = (record, dataIndex) => {
@@ -274,14 +246,21 @@ const UserList = () => {
     <div>
       <Search
         placeholder="Search users..."
-        onSearch={handleSearch}
+        onChange={(e) => handleSearch(e.target.value)}
+        onClear={handleClear}
         style={{ width: '100%' }}
-        enterButton
         allowClear
       />
+
       <Table
         dataSource={users}
         columns={columns}
+        components={{
+          body: {
+            row: EditableRow,
+            cell: EditableCell,
+          },
+        }}
         rowKey="id"
         pagination={false}
         bordered

@@ -2,15 +2,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, Input, Button, Image, Tooltip, Select } from 'antd';
-import { EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
+import {
+  EditOutlined,
+  DeleteOutlined,
+  SearchOutlined,
+} from '@ant-design/icons';
 import { IN_STOCK } from '../constants/common';
+import { get, put } from '../api/services';
 
 // Destructure components from Ant Design
 const { Meta } = Card;
 const { Option } = Select;
 
 // Define the functional component named GameCards
-function GameCards( {loggedInUser}) {
+function GameCards({ loggedInUser }) {
   // State variables using the useState hook
   const [games, setGames] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -20,12 +25,12 @@ function GameCards( {loggedInUser}) {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const response = await axios.get('http://localhost:5050/api/games');
+        const response = await get('/api/games');
         // Set initial state for games and editedGames using the API response
-        setGames(response.data);
+        setGames(response);
         setEditedGames(
           Object.fromEntries(
-            response.data.map((game) => [game.id, { ...game, isEditing: false }])
+            response.map((game) => [game.id, { ...game, isEditing: false }])
           )
         );
       } catch (error) {
@@ -67,7 +72,7 @@ function GameCards( {loggedInUser}) {
   const saveChanges = async (id) => {
     try {
       const updatedGame = editedGames[id];
-      await axios.put(`http://localhost:5050/api/games/${id}`, updatedGame);
+      await put(`/api/games/${id}`, updatedGame);
 
       // Update games state with the edited game
       setGames(games.map((game) => (game.id === id ? updatedGame : game)));
@@ -80,7 +85,7 @@ function GameCards( {loggedInUser}) {
   // Delete a game
   const deleteGame = async (id) => {
     try {
-      await axios.delete(`http://localhost:5050/api/games/${id}`);
+      await delete `/api/games/${id}`;
       // Update games state by filtering out the deleted game
       setGames(games.filter((game) => game.id !== id));
     } catch (error) {
@@ -92,7 +97,13 @@ function GameCards( {loggedInUser}) {
   return (
     <div>
       {/* Search bar */}
-      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginBottom: '20px',
+        }}
+      >
         <Input
           type="text"
           placeholder="    Search..."
@@ -112,22 +123,40 @@ function GameCards( {loggedInUser}) {
       </div>
 
       {/* Display game cards */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <div
+        style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}
+      >
         {games
-          .filter((game) =>
-            game.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            game.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            game.quantity.toString().includes(searchTerm.toLowerCase()) ||
-            game.price.toString().includes(searchTerm.toLowerCase()) ||
-            String(game.is_active).toLowerCase().includes(searchTerm.toLowerCase())
+          .filter(
+            (game) =>
+              game.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              game.description
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase()) ||
+              game.quantity.toString().includes(searchTerm.toLowerCase()) ||
+              game.price.toString().includes(searchTerm.toLowerCase()) ||
+              String(game.is_active)
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase())
           )
           .map((game) => (
             // Individual game card
             <Card
               key={game.id}
-              style={{ border: '4px solid black', padding: '10px', margin: '10px', width: '300px' }}
+              style={{
+                border: '4px solid black',
+                padding: '10px',
+                margin: '10px',
+                width: '300px',
+              }}
               cover={
-                <div style={{ display: 'flex', justifyContent: 'center', height: '200px' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    height: '200px',
+                  }}
+                >
                   {/* Game image */}
                   <Image
                     width={'100%'}
@@ -144,7 +173,9 @@ function GameCards( {loggedInUser}) {
                   editedGames[game.id].isEditing ? (
                     <Input
                       value={editedGames[game.id].name}
-                      onChange={(e) => handleEditChange(game.id, 'name', e.target.value)}
+                      onChange={(e) =>
+                        handleEditChange(game.id, 'name', e.target.value)
+                      }
                     />
                   ) : (
                     game.name
@@ -155,7 +186,9 @@ function GameCards( {loggedInUser}) {
                   editedGames[game.id].isEditing ? (
                     <Input.TextArea
                       value={editedGames[game.id].description}
-                      onChange={(e) => handleEditChange(game.id, 'description', e.target.value)}
+                      onChange={(e) =>
+                        handleEditChange(game.id, 'description', e.target.value)
+                      }
                     />
                   ) : (
                     game.description
@@ -169,7 +202,9 @@ function GameCards( {loggedInUser}) {
                   <Input
                     type="number"
                     value={editedGames[game.id].quantity}
-                    onChange={(e) => handleEditChange(game.id, 'quantity', e.target.value)}
+                    onChange={(e) =>
+                      handleEditChange(game.id, 'quantity', e.target.value)
+                    }
                   />
                 ) : (
                   `${game.quantity} units`
@@ -182,7 +217,9 @@ function GameCards( {loggedInUser}) {
                   <Input
                     type="number"
                     value={editedGames[game.id].price}
-                    onChange={(e) => handleEditChange(game.id, 'price', e.target.value)}
+                    onChange={(e) =>
+                      handleEditChange(game.id, 'price', e.target.value)
+                    }
                   />
                 ) : (
                   `$${game.price}`
@@ -193,54 +230,66 @@ function GameCards( {loggedInUser}) {
                 {/* Display either a select dropdown for editing or the game availability */}
                 {editedGames[game.id].isEditing ? (
                   <Select
-                    value={editedGames[game.id].is_active === IN_STOCK.YES ? 'In Stock' : 'Out of Stock'}
+                    value={
+                      editedGames[game.id].is_active === IN_STOCK.YES
+                        ? 'In Stock'
+                        : 'Out of Stock'
+                    }
                     onChange={(value) =>
-                      handleEditChange(game.id, 'is_active', value === IN_STOCK.YES ? true : false)
+                      handleEditChange(
+                        game.id,
+                        'is_active',
+                        value === IN_STOCK.YES ? true : false
+                      )
                     }
                   >
                     <Option value={IN_STOCK.YES}>In Stock</Option>
                     <Option value={IN_STOCK.NO}>Out of Stock</Option>
                   </Select>
+                ) : String(game.is_active) === IN_STOCK.YES ? (
+                  'In Stock'
                 ) : (
-                  String(game.is_active) === IN_STOCK.YES ? 'In Stock' : 'Out of Stock'
+                  'Out of Stock'
                 )}
               </p>
               {/* Buttons for saving changes, editing, and deleting */}
-<div style={{ display: 'flex', justifyContent: 'space-around' }}>
-  {/* Edit button */}
-  {loggedInUser?.token && loggedInUser?.role === 'admin' && !editedGames[game.id].isEditing && (
-    <Tooltip title="Edit game">
-      <Button
-        style={{ backgroundColor: 'white', color: 'black' }}
-        onClick={() => toggleEditMode(game.id)}
-      >
-        <EditOutlined />
-      </Button>
-    </Tooltip>
-  )}
-  {/* Save button */}
-  {editedGames[game.id].isEditing && (
-    <Tooltip title="Save changes">
-      <Button
-        style={{ backgroundColor: 'blue', color: 'white' }}
-        onClick={() => saveChanges(game.id)}
-      >
-        Save
-      </Button>
-    </Tooltip>
-  )}
-  {/* Delete button */}
-  {loggedInUser?.token && loggedInUser?.role === 'admin' && (
-    <Tooltip title="Delete game">
-      <Button
-        style={{ backgroundColor: '#3655b3', color: 'white' }}
-        onClick={() => deleteGame(game.id)}
-      >
-        <DeleteOutlined />
-      </Button>
-    </Tooltip>
-  )}
-</div>
+              <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                {/* Edit button */}
+                {loggedInUser?.token &&
+                  loggedInUser?.role === 'admin' &&
+                  !editedGames[game.id].isEditing && (
+                    <Tooltip title="Edit game">
+                      <Button
+                        style={{ backgroundColor: 'white', color: 'black' }}
+                        onClick={() => toggleEditMode(game.id)}
+                      >
+                        <EditOutlined />
+                      </Button>
+                    </Tooltip>
+                  )}
+                {/* Save button */}
+                {editedGames[game.id].isEditing && (
+                  <Tooltip title="Save changes">
+                    <Button
+                      style={{ backgroundColor: 'blue', color: 'white' }}
+                      onClick={() => saveChanges(game.id)}
+                    >
+                      Save
+                    </Button>
+                  </Tooltip>
+                )}
+                {/* Delete button */}
+                {loggedInUser?.token && loggedInUser?.role === 'admin' && (
+                  <Tooltip title="Delete game">
+                    <Button
+                      style={{ backgroundColor: '#3655b3', color: 'white' }}
+                      onClick={() => deleteGame(game.id)}
+                    >
+                      <DeleteOutlined />
+                    </Button>
+                  </Tooltip>
+                )}
+              </div>
             </Card>
           ))}
       </div>

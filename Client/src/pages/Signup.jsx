@@ -3,6 +3,7 @@ import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { post } from '../api/services';
 
 // Define the functional component named Signup
 function Signup() {
@@ -48,7 +49,7 @@ function Signup() {
   const onFinish = async (values) => {
     try {
       // Send a POST request to the server for user registration
-      const response = await axios.post('http://localhost:5050/api/users/register', {
+      const response = await post('/api/users/register', {
         full_name: values.fullName, // Make sure to include the full_name field
         email: values.email,
         password: values.password,
@@ -76,12 +77,19 @@ function Signup() {
         <h2 style={headerStyle}>Sign Up</h2>
 
         {/* Ant Design Form component */}
-        <Form name="signupForm" onFinish={onFinish} labelCol={labelCol} wrapperCol={wrapperCol}>
+        <Form
+          name="signupForm"
+          onFinish={onFinish}
+          labelCol={labelCol}
+          wrapperCol={wrapperCol}
+        >
           {/* Input for full name */}
           <Form.Item
             label="Full Name"
             name="fullName"
-            rules={[{ required: true, message: 'Please input your full name!' }]}
+            rules={[
+              { required: true, message: 'Please input your full name!' },
+            ]}
           >
             <Input placeholder="Full Name" style={{ textAlign: 'left' }} />
           </Form.Item>
@@ -101,7 +109,10 @@ function Signup() {
             name="password"
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
-            <Input.Password placeholder="Password" style={{ textAlign: 'left', width: '100%' }} />
+            <Input.Password
+              placeholder="Password"
+              style={{ textAlign: 'left', width: '100%' }}
+            />
           </Form.Item>
 
           {/* Input for confirming password */}
@@ -140,7 +151,9 @@ function Signup() {
           <Form.Item
             label="Phone #"
             name="phone-number"
-            rules={[{ required: true, message: 'Please input your phone-number!' }]}
+            rules={[
+              { required: true, message: 'Please input your phone-number!' },
+            ]}
           >
             <Input placeholder="Phone-Number" style={{ textAlign: 'left' }} />
           </Form.Item>

@@ -2,7 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, Input, Button, Tooltip } from 'antd';
-import { EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
+import {
+  EditOutlined,
+  DeleteOutlined,
+  SearchOutlined,
+} from '@ant-design/icons';
 
 // Destructure Meta component from Card
 const { Meta } = Card;
@@ -23,7 +27,10 @@ function UserCards() {
         setUsers(response.data);
         setEditedUsers(
           Object.fromEntries(
-            response.data.map((user) => [user.id, { ...user, isEditing: false }])
+            response.data.map((user) => [
+              user.id,
+              { ...user, isEditing: false },
+            ])
           )
         );
       } catch (error) {
@@ -90,7 +97,13 @@ function UserCards() {
   return (
     <div>
       {/* Search bar */}
-      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginBottom: '20px',
+        }}
+      >
         <Input
           type="text"
           placeholder="    Search..."
@@ -110,20 +123,30 @@ function UserCards() {
       </div>
 
       {/* Display user cards */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <div
+        style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}
+      >
         {users
-          .filter((user) =>
-            user.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            user.phone_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            user.address.toLowerCase().includes(searchTerm.toLowerCase()),
+          .filter(
+            (user) =>
+              user.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              user.phone_number
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase()) ||
+              user.address.toLowerCase().includes(searchTerm.toLowerCase())
           )
           .map((user) => (
             // Individual user card
             <Card
               key={user.id}
-              style={{ border: '4px solid black', padding: '10px', margin: '10px', width: '300px' }}
+              style={{
+                border: '4px solid black',
+                padding: '10px',
+                margin: '10px',
+                width: '300px',
+              }}
             >
               <Meta
                 title={
@@ -131,7 +154,9 @@ function UserCards() {
                   editedUsers[user.id].isEditing ? (
                     <Input
                       value={editedUsers[user.id].full_name}
-                      onChange={(e) => handleEditChange(user.id, 'full_name', e.target.value)}
+                      onChange={(e) =>
+                        handleEditChange(user.id, 'full_name', e.target.value)
+                      }
                     />
                   ) : (
                     user.full_name
@@ -144,7 +169,9 @@ function UserCards() {
                 {editedUsers[user.id].isEditing ? (
                   <Input
                     value={editedUsers[user.id].username}
-                    onChange={(e) => handleEditChange(user.id, 'username', e.target.value)}
+                    onChange={(e) =>
+                      handleEditChange(user.id, 'username', e.target.value)
+                    }
                   />
                 ) : (
                   user.username
@@ -157,7 +184,9 @@ function UserCards() {
                 {editedUsers[user.id].isEditing ? (
                   <Input
                     value={editedUsers[user.id].email}
-                    onChange={(e) => handleEditChange(user.id, 'email', e.target.value)}
+                    onChange={(e) =>
+                      handleEditChange(user.id, 'email', e.target.value)
+                    }
                   />
                 ) : (
                   user.email
@@ -170,7 +199,9 @@ function UserCards() {
                 {editedUsers[user.id].isEditing ? (
                   <Input
                     value={editedUsers[user.id].phone_number}
-                    onChange={(e) => handleEditChange(user.id, 'phone_number', e.target.value)}
+                    onChange={(e) =>
+                      handleEditChange(user.id, 'phone_number', e.target.value)
+                    }
                   />
                 ) : (
                   user.phone_number
@@ -182,7 +213,9 @@ function UserCards() {
                 {editedUsers[user.id].isEditing ? (
                   <Input
                     value={editedUsers[user.id].address}
-                    onChange={(e) => handleEditChange(user.id, 'address', e.target.value)}
+                    onChange={(e) =>
+                      handleEditChange(user.id, 'address', e.target.value)
+                    }
                   />
                 ) : (
                   user.address

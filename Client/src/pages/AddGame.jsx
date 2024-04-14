@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button, Form, Input, Select, Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import { post } from '../api/services';
 
 // Destructuring to get the 'Option' component from 'Select'
 const { Option } = Select;
@@ -77,7 +78,7 @@ const AddGame = () => {
       }
 
       // Use axios to make a POST request to add a new game
-      await axios.post(`http://localhost:5050/api/games`, formData, {
+      await post('/api/games', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -115,7 +116,7 @@ const AddGame = () => {
         onFinish={onFinish}
         autoComplete="on"
       >
-         <h2>Add Game</h2>
+        <h2>Add Game</h2>
         {/* Form items for various game attributes */}
         <Form.Item
           label="Name"
@@ -219,16 +220,22 @@ const AddGame = () => {
           ]}
         >
           {/* Upload component for game picture */}
-          <Upload name="picture" action="http://localhost:5050/api/games/upload" listType="picture">
+          <Upload
+            name="picture"
+            action="http://localhost:5050/api/games/upload"
+            listType="picture"
+          >
             <Button icon={<UploadOutlined />}>Click to upload</Button>
           </Upload>
         </Form.Item>
 
         {/* Submit button */}
-        <Form.Item
-          wrapperCol={buttonCol}
-        >
-          <Button type="primary" htmlType="submit" title="Click Submit to add the game">
+        <Form.Item wrapperCol={buttonCol}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            title="Click Submit to add the game"
+          >
             Submit
           </Button>
         </Form.Item>

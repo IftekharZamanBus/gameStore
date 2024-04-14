@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Input } from 'antd';
 import GameCards from '../components/GameCards';
+import { get } from '../api/services';
 
 // Define the functional component named GameList
 function GameList() {
@@ -14,7 +15,7 @@ function GameList() {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const response = await axios.get('http://localhost:5050/api/games');
+        const response = await get('api/games');
         setGames(response.data);
       } catch (error) {
         console.error('Error fetching games:', error);
@@ -32,9 +33,10 @@ function GameList() {
   // JSX structure for the GameList component
   return (
     <div>
-
       {/* List of game cards section */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <div
+        style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}
+      >
         {/* GameCards component to display the list of games */}
         <GameCards games={games} searchTerm={searchTerm} />
       </div>

@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 // Import route modules for games and users
 const gameRoutes = require('./routes/gameRoutes');
 const userRoutes = require('./routes/userRoutes');
+const taxRoutes = require('./routes/taxRoutes')
 
 // Import middleware
 const {errorHandler} = require('./middleware/errorMiddleware');
@@ -34,6 +35,7 @@ app.use("/uploads", express.static("uploads"))
 // Use the defined routes for games and users
 app.use('/api/games', gameRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/taxes', taxRoutes);
 
 // Error handling middleware - log errors and send a generic 500 Internal Server Error response
 app.use(errorHandler);

@@ -6,9 +6,10 @@ const dotenv = require('dotenv');
 // Import route modules for games and users
 const gameRoutes = require('./routes/gameRoutes');
 const userRoutes = require('./routes/userRoutes');
+const couponRoutes = require('./routes/couponRoutes');
 
 // Import middleware
-const {errorHandler} = require('./middleware/errorMiddleware');
+const { errorHandler } = require('./middleware/errorMiddleware');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -29,11 +30,12 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static files from the 'uploads' directory at the '/uploads' URL
-app.use("/uploads", express.static("uploads"))
+app.use('/uploads', express.static('uploads'));
 
 // Use the defined routes for games and users
 app.use('/api/games', gameRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/coupons', couponRoutes);
 
 // Error handling middleware - log errors and send a generic 500 Internal Server Error response
 app.use(errorHandler);

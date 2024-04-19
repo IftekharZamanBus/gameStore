@@ -96,9 +96,9 @@ const deleteCoupon = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+  createCoupon,
   getAllCoupons,
   getCouponById,
-  createCoupon,
   updateCoupon,
   deleteCoupon,
 };

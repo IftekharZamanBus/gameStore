@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 const gameRoutes = require('./routes/gameRoutes');
 const userRoutes = require('./routes/userRoutes');
 const couponRoutes = require('./routes/couponRoutes');
+const taxRoutes = require('./routes/taxRoutes');
 const billingAddressRoutes = require('./routes/billingAddressRoutes');
 const shippingAddressRoutes = require('./routes/shippingAddressRoutes');
 
@@ -38,6 +39,7 @@ app.use('/uploads', express.static('uploads'));
 app.use('/api/games', gameRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/coupons', couponRoutes);
+app.use('/api/taxes', taxRoutes)
 app.use('/api/billing-addresses', billingAddressRoutes);
 app.use('/api/shipping-addresses', shippingAddressRoutes)
 

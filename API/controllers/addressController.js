@@ -29,8 +29,11 @@ const createBillingAddress = asyncHandler(async (req, res) => {
 
 // GET: Retrieve all Billing Addresses
 const getAllBillingAddresses = asyncHandler(async (req, res) => {
+  const user_id = req.user.id;
   try {
-    const billingAddresses = await BillingAddress.findAll();
+    const billingAddresses = await BillingAddress.findAll({
+      where: { user_id },
+    });
 
     res.json(billingAddresses);
   } catch (error) {
@@ -107,7 +110,16 @@ const deleteBillingAddress = asyncHandler(async (req, res) => {
 
 // POST: Create a Shipping Address
 const createShippingAddress = asyncHandler(async (req, res) => {
-  const { address, address2, city, state, zip_code, phone_number, shipping_type, shipping_cost } = req.body;
+  const {
+    address,
+    address2,
+    city,
+    state,
+    zip_code,
+    phone_number,
+    shipping_type,
+    shipping_cost,
+  } = req.body;
 
   try {
     const shippingAddress = await ShippingAddress.create({
@@ -162,7 +174,16 @@ const getShippingAddressById = asyncHandler(async (req, res) => {
 // PUT: Update a Shipping Address
 const updateShippingAddress = asyncHandler(async (req, res) => {
   const shippingAddressId = req.params.id;
-  const { address, address2, city, state, zip_code, phone_number, shipping_type, shipping_cost } = req.body;
+  const {
+    address,
+    address2,
+    city,
+    state,
+    zip_code,
+    phone_number,
+    shipping_type,
+    shipping_cost,
+  } = req.body;
 
   try {
     const shippingAddress = await ShippingAddress.findByPk(shippingAddressId);

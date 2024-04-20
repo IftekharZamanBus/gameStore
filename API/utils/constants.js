@@ -15,5 +15,13 @@ const ROLE = {
     USER: "user"
 }
 
+const ORDER_STATUS = {
+    PENDING: "pending",
+    PROCESSING: "processing",
+    SHIPPED: "shipped",
+    DELIVERED: "delivered",
+    CANCELLED: "cancelled"
+}
+
 // Export the defined constants for use in other parts of your application
-module.exports = { IN_STOCK, STATUS, ROLE };
+module.exports = { IN_STOCK, STATUS, ROLE, ORDER_STATUS };

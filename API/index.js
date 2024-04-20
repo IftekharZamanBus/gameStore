@@ -10,6 +10,7 @@ const couponRoutes = require('./routes/couponRoutes');
 const taxRoutes = require('./routes/taxRoutes');
 const billingAddressRoutes = require('./routes/billingAddressRoutes');
 const shippingAddressRoutes = require('./routes/shippingAddressRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 
 // Import middleware
 const { errorHandler } = require('./middleware/errorMiddleware');
@@ -41,7 +42,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/coupons', couponRoutes);
 app.use('/api/taxes', taxRoutes)
 app.use('/api/billing-addresses', billingAddressRoutes);
-app.use('/api/shipping-addresses', shippingAddressRoutes)
+app.use('/api/shipping-addresses', shippingAddressRoutes);
+app.use('/api/orders', orderRoutes);
 
 // Error handling middleware - log errors and send a generic 500 Internal Server Error response
 app.use(errorHandler);

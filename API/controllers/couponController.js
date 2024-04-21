@@ -87,7 +87,7 @@ const deleteCoupon = asyncHandler(async (req, res) => {
 
     await coupon.destroy();
     res
-      .status(204)
+      .status(200)
       .json({ message: 'Coupon successfully deleted', coupon: coupon });
   } catch (error) {
     console.error('Error:', error);

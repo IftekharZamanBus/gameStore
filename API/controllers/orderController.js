@@ -95,4 +95,30 @@ const createOrder = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * @desc   Delete an order by ID
+ * @route  DELETE /api/orders/:id
+ * @access Private
+ */
+
+const deleteOrder = asyncHandler(async (req, res) => {
+  const orderId = req.params.id;
+
+  // Check if the order exists
+  const order = await Order.findByPk(orderId);
+  if (!order) {
+    res.status(404);
+    throw new Error("Order not found");
+  }
+
+  // Delete the order and associated order details
+  await Order.destroy({ where: { id: orderId } });
+  await OrderDetails.destroy({ where: { order_id: orderId } });
+
+  res.status(200).json({ message: "Order deleted successfully" });
+});
+
+module.exports = { createOrder, deleteOrder };
+
+
 module.exports = { createOrder };

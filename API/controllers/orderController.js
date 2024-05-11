@@ -164,8 +164,9 @@ const deleteOrder = asyncHandler(async (req, res) => {
   }
 
   // Delete the order and associated order details
-  await Order.destroy({ where: { id: orderId } });
   await OrderDetails.destroy({ where: { order_id: orderId } });
+  await Order.destroy({ where: { id: orderId } });
+  
 
   res.status(200).json({ message: 'Order deleted successfully' });
 });

@@ -4,6 +4,8 @@ const { protect, admin } = require('../middleware/authMiddleware');
 const orderController = require('../controllers/orderController');
 
 router.post('/', protect, orderController.createOrder);
+router.get('/', protect, orderController.getAllOrders);
+router.put('/:id', protect, orderController.updateOrder);
 router.delete('/:id', [protect, admin], orderController.deleteOrder);
 
 module.exports = router;

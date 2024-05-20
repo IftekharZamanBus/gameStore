@@ -27,12 +27,16 @@ import Profile from './pages/Profile';
 import ResetPassword from './pages/ResetPassword';
 import UserProfile from './components/UserProfile';
 import { AuthProvider, AuthContext } from './context/auth';
+import { useSelector, useDispatch } from 'react-redux';
 import UserList from './components/UserList/UserList';
+import { logout } from './slices/authSlice';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [loggedInUser, setLoggedInUser] = useState(null);
-  const { user, logout } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const {user} = useSelector((state) => state.auth);
+  //const { user, logout } = useContext(AuthContext);
 
   const handleSearch = (term) => {
     setSearchTerm(term);
@@ -53,9 +57,8 @@ function App() {
   }, [user]);
 
   const handleLogout = () => {
-    logout();
+    dispatch(logout());
     setLoggedInUser(null);
-    localStorage.removeItem('user');
     window.location.href = '/';
   };
 

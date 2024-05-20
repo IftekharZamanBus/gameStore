@@ -1,29 +1,18 @@
 // Import necessary modules and components from React and ant-design library
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Input } from 'antd';
-import GameCards from '../components/GameCards';
-import { get } from '../api/services';
+import React, { useState } from "react";
+import GameCards from "../components/GameCards";
+import { useGetGamesQuery } from "../slices/gameSlice";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 
 // Define the functional component named GameList
 function GameList() {
+  const { data: games, isLoading, error } = useGetGamesQuery();
   // State variables for managing games and search term
-  const [games, setGames] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  //const [games, setGames] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Fetch games from the API when the component mounts
-  useEffect(() => {
-    const fetchGames = async () => {
-      try {
-        const response = await get('api/games');
-        setGames(response.data);
-      } catch (error) {
-        console.error('Error fetching games:', error);
-      }
-    };
-
-    fetchGames();
-  }, []);
 
   // Handler for input change in the search bar
   const handleInputChange = (event) => {
@@ -32,15 +21,31 @@ function GameList() {
 
   // JSX structure for the GameList component
   return (
-    <div>
-      {/* List of game cards section */}
-      <div
-        style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}
-      >
-        {/* GameCards component to display the list of games */}
-        <GameCards games={games} searchTerm={searchTerm} />
-      </div>
-    </div>
+    <>
+      {isLoading ? (
+        <Loader loading={isLoading} />
+      ) : error ? (
+        <Message
+          type="error"
+          message="Games Error"
+          description={error.error || error?.data?.message}
+        />
+      ) : (
+        <>
+          {/* List of game cards section */}
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
+            {/* GameCards component to display the list of games */}
+            <GameCards games={games} searchTerm={searchTerm} />
+          </div>
+        </>
+      )}
+    </>
   );
 }
 

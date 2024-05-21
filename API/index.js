@@ -1,6 +1,5 @@
 // Import necessary modules - express for web server, path for file path manipulation, dotenv for environment variables
 const express = require('express');
-const path = require('path');
 const dotenv = require('dotenv');
 
 // Import route modules for games and users
@@ -40,7 +39,7 @@ app.use('/uploads', express.static('uploads'));
 app.use('/api/games', gameRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/coupons', couponRoutes);
-app.use('/api/taxes', taxRoutes)
+app.use('/api/taxes', taxRoutes);
 app.use('/api/billing-addresses', billingAddressRoutes);
 app.use('/api/shipping-addresses', shippingAddressRoutes);
 app.use('/api/orders', orderRoutes);

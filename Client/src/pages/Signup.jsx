@@ -1,8 +1,6 @@
 // Import necessary modules and components from React, antd, react-router-dom, and axios
-import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { post } from '../api/services';
 
 // Define the functional component named Signup

@@ -1,10 +1,9 @@
 // Import necessary modules and components from React and axios
-import React, { useState, useEffect, useContext } from "react";
-import UserCards from "../components/UserCards";
-import { AuthContext } from "../context/auth";
-import { getById } from "../api/services";
-import { message } from "antd";
-import UserProfile from "../components/UserProfile";
+import { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../context/auth';
+import { getById } from '../api/services';
+import { message } from 'antd';
+import UserProfile from '../components/UserProfile';
 
 // Define the functional component named Profile
 function Profile() {
@@ -19,12 +18,12 @@ function Profile() {
       try {
         // Fetch user profiles from the specified API endpoint
         const response = await getById(`/api/users`, context?.user?.id);
-        console.log("response", response);
+        console.log('response', response);
         // Update the state with the fetched user profiles
         setUserProfile(response);
       } catch (error) {
         if (isMounted) {
-          console.error("Error fetching profile:", error);
+          console.error('Error fetching profile:', error);
           const errorMessage = `${error.response.status} - Unable to fetch profile due to: ${error.response.data.message}`;
           message.error(errorMessage);
         }
@@ -42,7 +41,7 @@ function Profile() {
 
   // JSX structure for the Profile component
   return userProfile === null ? (
-    "Loading..."
+    'Loading...'
   ) : (
     <>
       <UserProfile userProfile={userProfile} />

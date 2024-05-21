@@ -1,5 +1,3 @@
-const dotenv = require('dotenv');
-
 const User = require('./models/user');
 const Game = require('./models/game');
 const Tax = require('./models/tax');
@@ -11,7 +9,7 @@ const users = require('./data/users');
 const games = require('./data/games');
 const taxes = require('./data/taxes');
 const coupons = require('./data/coupons');
-const shippingaddresses = require('./data/shippingAddresses')
+const shippingaddresses = require('./data/shippingAddresses');
 const billingAddresses = require('./data/billingAddresses');
 
 // Database
@@ -41,8 +39,8 @@ const importData = async () => {
     await Tax.bulkCreate(taxes);
     await Coupon.bulkCreate(coupons);
     let updatedShippingAddress = shippingaddresses.map((address) => {
-        return { ...address, user_id: userList[1].id };
-      });
+      return { ...address, user_id: userList[1].id };
+    });
     await ShippingAddress.bulkCreate(updatedShippingAddress);
     let updatedAddresses = billingAddresses.map((address) => {
       return { ...address, user_id: userList[1].id };

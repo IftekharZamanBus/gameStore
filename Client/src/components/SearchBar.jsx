@@ -1,5 +1,5 @@
 // Import necessary modules and components from React
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 // Define the functional component named SearchBar and receive handleSearch as a prop
 const SearchBar = ({ handleSearch }) => {

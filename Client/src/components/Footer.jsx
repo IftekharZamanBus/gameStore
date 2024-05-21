@@ -1,5 +1,4 @@
 // Import the React library
-import React from 'react';
 
 // Create a functional component named Footer
 function Footer() {

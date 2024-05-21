@@ -1,10 +1,7 @@
-import { Spin } from 'antd'
-import React from 'react'
+import { Spin } from 'antd';
 
-const Loader = ({loading}) => {
-  return (
-    <Spin size='large' fullscreen tip="Loading..." spinning={loading} />
-  )
-}
+const Loader = ({ loading }) => {
+  return <Spin size="large" fullscreen tip="Loading..." spinning={loading} />;
+};
 
-export default Loader
+export default Loader;

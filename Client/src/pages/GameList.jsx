@@ -1,16 +1,16 @@
 // Import necessary modules and components from React and ant-design library
-import React, { useState } from "react";
-import GameCards from "../components/GameCards";
-import { useGetGamesQuery } from "../slices/gameSlice";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
+import { useState } from 'react';
+import GameCards from '../components/GameCards';
+import { useGetGamesQuery } from '../slices/gameSlice';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 
 // Define the functional component named GameList
 function GameList() {
   const { data: games, isLoading, error } = useGetGamesQuery();
   // State variables for managing games and search term
   //const [games, setGames] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
 
   // Fetch games from the API when the component mounts
 
@@ -35,9 +35,9 @@ function GameList() {
           {/* List of game cards section */}
           <div
             style={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
             }}
           >
             {/* GameCards component to display the list of games */}

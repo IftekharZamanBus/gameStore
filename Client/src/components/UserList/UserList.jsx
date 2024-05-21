@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
-import { Table, Input, Form, Popconfirm, Typography, Button } from 'antd';
+import { Table, Input, Form, Popconfirm, Button } from 'antd';
 import { get, put } from '../../api/services';
 import './UserList.css';
 

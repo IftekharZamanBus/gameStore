@@ -1,5 +1,4 @@
 // Import necessary modules and components from React and ant-design library
-import React from 'react';
 import { Form, Input, Button, Tooltip } from 'antd';
 import { MailOutlined, PhoneOutlined } from '@ant-design/icons';
 
@@ -51,7 +50,9 @@ function Contact() {
           <Form.Item
             label="Name"
             name="fullName"
-            rules={[{ required: true, message: 'Please input your full name!' }]}
+            rules={[
+              { required: true, message: 'Please input your full name!' },
+            ]}
             tooltip="Enter your Full Name"
             labelCol={labelCol}
             wrapperCol={wrapperCol}
@@ -73,7 +74,9 @@ function Contact() {
           <Form.Item
             label="Phone #"
             name="phone-number"
-            rules={[{ required: false, message: 'Please input your phone-number!' }]}
+            rules={[
+              { required: false, message: 'Please input your phone-number!' },
+            ]}
             tooltip="Enter your phone number"
             labelCol={labelCol}
             wrapperCol={wrapperCol}

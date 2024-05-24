@@ -1,6 +1,5 @@
 // Import necessary modules and components from React, Axios, and Ant Design
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
 import { Card, Input, Button, Image, Tooltip, Select } from 'antd';
 import {
   EditOutlined,

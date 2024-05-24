@@ -1,8 +1,5 @@
 // Import necessary modules and components from React, antd, react-router-dom, and axios
-import React, { useContext } from 'react';
-import { Form, Input, Button, message } from 'antd';
-import { post } from '../api/services';
-import { AuthContext } from '../context/auth';
+import { Form, Input, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../slices/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,14 +8,13 @@ import { setCredentials } from '../slices/authSlice';
 // Define the functional component named Login
 function Login() {
   const [form] = Form.useForm();
-  const context = useContext(AuthContext);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
-  const [login, {isLoading, error}] = useLoginMutation();
+  const [login, { isLoading, error }] = useLoginMutation();
 
-  const {user} = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   // Styles for layout and elements
   const containerStyle = {
@@ -67,7 +63,7 @@ function Login() {
       //   window.location.href = '/';
       // }
       const response = await login(values).unwrap();
-      dispatch(setCredentials({...response}));
+      dispatch(setCredentials({ ...response }));
       navigate('/');
     } catch (error) {
       console.error(error);

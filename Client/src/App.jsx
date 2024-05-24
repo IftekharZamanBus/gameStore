@@ -1,11 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  useLocation,
-} from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import GameList from './pages/GameList';
 import AddGame from './pages/AddGame';
 import Login from './pages/Login';
@@ -26,7 +20,7 @@ import Contact from './pages/Contact';
 import Profile from './pages/Profile';
 import ResetPassword from './pages/ResetPassword';
 import UserProfile from './components/UserProfile';
-import { AuthProvider, AuthContext } from './context/auth';
+import { AuthProvider } from './context/auth';
 import { useSelector, useDispatch } from 'react-redux';
 import UserList from './components/UserList/UserList';
 import { logout } from './slices/authSlice';
@@ -35,7 +29,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [loggedInUser, setLoggedInUser] = useState(null);
   const dispatch = useDispatch();
-  const {user} = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   //const { user, logout } = useContext(AuthContext);
 
   const handleSearch = (term) => {

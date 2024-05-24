@@ -1,6 +1,5 @@
-import React from "react";
-import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
-import { Tag } from "antd";
+import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { Tag } from 'antd';
 
 function UserProfile({ userProfile }) {
   return (
@@ -13,8 +12,8 @@ function UserProfile({ userProfile }) {
         <p>Phone Number: {userProfile?.phone_number}</p>
         <p>Address: {userProfile?.address}</p>
         <p>
-          Is Active:{" "}
-          {userProfile?.is_active === "Y" ? (
+          Is Active:{' '}
+          {userProfile?.is_active === 'Y' ? (
             <Tag icon={<CheckCircleOutlined />} color="success">
               Active
             </Tag>

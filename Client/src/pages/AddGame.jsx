@@ -1,8 +1,7 @@
 // Import necessary modules and components from React and ant-design library
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Form, Input, Select, Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import axios from 'axios';
 import { post } from '../api/services';
 
 // Destructuring to get the 'Option' component from 'Select'

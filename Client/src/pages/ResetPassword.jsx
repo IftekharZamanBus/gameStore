@@ -1,5 +1,4 @@
 // Import necessary modules and components from React and antd
-import React from 'react';
 import { Form, Input, Button } from 'antd';
 
 // Define the functional component named ResetPassword
@@ -53,12 +52,19 @@ function ResetPassword() {
         <h2 style={headerStyle}>Reset Password</h2>
 
         {/* Ant Design Form component */}
-        <Form name="resetPasswordForm" onFinish={onFinish} labelCol={labelCol} wrapperCol={wrapperCol}>
+        <Form
+          name="resetPasswordForm"
+          onFinish={onFinish}
+          labelCol={labelCol}
+          wrapperCol={wrapperCol}
+        >
           {/* Input for new password */}
           <Form.Item
             label="New Password"
             name="newPassword"
-            rules={[{ required: true, message: 'Please input your new password!' }]}
+            rules={[
+              { required: true, message: 'Please input your new password!' },
+            ]}
           >
             <Input.Password
               placeholder="New Password"

@@ -5,10 +5,12 @@ import { InfoCircleOutlined, PhoneOutlined, UserOutlined } from '@ant-design/ico
 import { LuJoystick } from 'react-icons/lu'; // Import custom joystick icon from react-icons
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom to create navigation links
 import { AuthContext } from '../context/auth'; // Import the AuthContext from the context/auth module
+import { useSelector } from 'react-redux';
 
 // Define the functional component named Navbar
 const Navbar = () => {
-  const {user} = useContext(AuthContext);
+  const {user} = useSelector((state) => state.auth);
+  //const {user} = useContext(AuthContext);
   // Define styles for icons
   const iconStyle = {
     color: 'white', // Default icon color

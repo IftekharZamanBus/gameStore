@@ -4,12 +4,22 @@ import { Form, Input, Button, message } from 'antd';
 import { post } from '../api/services';
 import { AuthContext } from '../context/auth';
 import { useNavigate } from 'react-router-dom';
+import { useLoginMutation } from '../slices/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCredentials } from '../slices/authSlice';
 
 // Define the functional component named Login
 function Login() {
   const [form] = Form.useForm();
   const context = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const [login, {isLoading, error}] = useLoginMutation();
+
+  const {user} = useSelector((state) => state.auth);
+
   // Styles for layout and elements
   const containerStyle = {
     display: 'flex',
@@ -48,14 +58,17 @@ function Login() {
   const onFinish = async (values) => {
     console.log('Success:', values);
     try {
-      const response = await post(`/api/users/login`, values);
-      if (response?.token) {
-        form.resetFields();
-        message.success('Logged in successfully');
-        localStorage.setItem('user', JSON.stringify(response));
-        context.login(response);
-        window.location.href = '/';
-      }
+      // const response = await post(`/api/users/login`, values);
+      // if (response?.token) {
+      //   form.resetFields();
+      //   message.success('Logged in successfully');
+      //   localStorage.setItem('user', JSON.stringify(response));
+      //   context.login(response);
+      //   window.location.href = '/';
+      // }
+      const response = await login(values).unwrap();
+      dispatch(setCredentials({...response}));
+      navigate('/');
     } catch (error) {
       console.error(error);
     }
@@ -104,7 +117,7 @@ function Login() {
 
           {/* Button for submitting the form */}
           <Form.Item wrapperCol={{ span: 24, textAlign: 'left' }}>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={isLoading}>
               Login
             </Button>
           </Form.Item>

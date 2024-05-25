@@ -1,12 +1,11 @@
-import { useState } from 'react';
-import { Form, Input, Button, Select, Upload, message } from 'antd';
+import React, { useState } from 'react';
+import { Button, Form, Input, Select, Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useAddGameMutation } from '../slices/gameSlice';
 
 const { Option } = Select;
 
 const AddGame = () => {
-  const [form] = Form.useForm();
   const [game, setGame] = useState({
     name: '',
     description: '',
@@ -15,43 +14,14 @@ const AddGame = () => {
     availability: '',
     picture: null,
   });
+
   const [formLayout] = useState('vertical');
   const [addGame, { isLoading }] = useAddGameMutation();
-
-  const onFinish = async (values) => {
-    try {
-      const formData = new FormData();
-      formData.append('name', game.name);
-      formData.append('description', game.description);
-      formData.append('quantity', game.quantity);
-      formData.append('price', game.price);
-      formData.append('availability', game.availability);
-
-      if (game.picture) {
-        formData.append('picture', game.picture.originFileObj);
-      }
-
-      await addGame(formData);
-
-      message.success('Game added successfully!');
-      form.resetFields();
-    } catch (error) {
-      console.error('Error adding game:', error);
-      message.error('Error adding game. Please try again.');
-    }
-  };
-
-  const normFile = (e) => {
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e && e.fileList;
-  };
 
   const containerStyle = {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'left',
     minHeight: '80vh',
   };
 
@@ -85,10 +55,35 @@ const AddGame = () => {
     textAlign: 'left',
   };
 
+  const onFinish = async (values) => {
+    try {
+      const formData = new FormData();
+      formData.append('name', game.name);
+      formData.append('description', game.description);
+      formData.append('quantity', game.quantity);
+      formData.append('price', game.price);
+      formData.append('availability', game.availability);
+      if (game.picture) {
+        formData.append('picture', game.picture.originFileObj);
+      }
+      await addGame(formData).unwrap();
+      message.success('Game added successfully!');
+    } catch (error) {
+      console.error('Error adding game:', error);
+      message.error('Error adding game. Please try again.');
+    }
+  };
+
+  const normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
+  };
+
   return (
     <div style={containerStyle}>
       <Form
-        form={form}
         name="addGameForm"
         layout={formLayout}
         style={formStyle}
@@ -203,8 +198,9 @@ const AddGame = () => {
         >
           <Upload
             name="picture"
-            action="http://localhost:5050/api/games/upload"
             listType="picture"
+            beforeUpload={() => false}
+            onChange={(info) => setGame({ ...game, picture: info.fileList[0] })}
           >
             <Button icon={<UploadOutlined />}>Click to upload</Button>
           </Upload>
@@ -214,8 +210,8 @@ const AddGame = () => {
           <Button
             type="primary"
             htmlType="submit"
-            loading={isLoading}
             title="Click Submit to add the game"
+            loading={isLoading}
           >
             Submit
           </Button>

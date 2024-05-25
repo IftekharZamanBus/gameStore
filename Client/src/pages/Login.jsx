@@ -9,11 +9,8 @@ import { setCredentials } from '../slices/authSlice';
 function Login() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
-
   const [login, { isLoading, error }] = useLoginMutation();
-
   const { user } = useSelector((state) => state.auth);
 
   // Styles for layout and elements

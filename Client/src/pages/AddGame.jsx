@@ -1,15 +1,12 @@
-// Import necessary modules and components from React and ant-design library
 import { useState } from 'react';
-import { Button, Form, Input, Select, Upload, message } from 'antd';
+import { Form, Input, Button, Select, Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import { post } from '../api/services';
+import { useAddGameMutation } from '../slices/gameSlice';
 
-// Destructuring to get the 'Option' component from 'Select'
 const { Option } = Select;
 
-// Define the functional component named AddGame
 const AddGame = () => {
-  // State to manage the form data for adding a game
+  const [form] = Form.useForm();
   const [game, setGame] = useState({
     name: '',
     description: '',
@@ -18,15 +15,43 @@ const AddGame = () => {
     availability: '',
     picture: null,
   });
+  const [formLayout] = useState('vertical');
+  const [addGame, { isLoading }] = useAddGameMutation();
 
-  // State to manage the form layout (vertical)
-  const [formLayout, setFormLayout] = useState('vertical');
+  const onFinish = async (values) => {
+    try {
+      const formData = new FormData();
+      formData.append('name', game.name);
+      formData.append('description', game.description);
+      formData.append('quantity', game.quantity);
+      formData.append('price', game.price);
+      formData.append('availability', game.availability);
 
-  // Styles for various sections of the component
+      if (game.picture) {
+        formData.append('picture', game.picture.originFileObj);
+      }
+
+      await addGame(formData);
+
+      message.success('Game added successfully!');
+      form.resetFields();
+    } catch (error) {
+      console.error('Error adding game:', error);
+      message.error('Error adding game. Please try again.');
+    }
+  };
+
+  const normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
+  };
+
   const containerStyle = {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'left',
+    alignItems: 'center',
     minHeight: '80vh',
   };
 
@@ -53,57 +78,17 @@ const AddGame = () => {
 
   const buttonCol = {
     span: 24,
-    textAlign: 'center', // Center the button
+    textAlign: 'center',
   };
 
   const inputStyle = {
     textAlign: 'left',
   };
 
-  // Handler for form submission
-  const onFinish = async (values) => {
-    try {
-      // Create a FormData object to handle file uploads
-      const formData = new FormData();
-      formData.append('name', game.name);
-      formData.append('description', game.description);
-      formData.append('quantity', game.quantity);
-      formData.append('price', game.price);
-      formData.append('availability', game.availability);
-
-      // Append the image file to the form data
-      if (game.picture) {
-        formData.append('picture', game.picture.originFileObj);
-      }
-
-      // Use axios to make a POST request to add a new game
-      await post('/api/games', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      // Handle successful game addition
-      message.success('Game added successfully!');
-    } catch (error) {
-      // Handle game addition error
-      console.error('Error adding game:', error);
-      message.error('Error adding game. Please try again.');
-    }
-  };
-
-  // Custom function to normalize file input
-  const normFile = (e) => {
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e && e.fileList;
-  };
-
-  // JSX structure for the AddGame component
   return (
     <div style={containerStyle}>
       <Form
+        form={form}
         name="addGameForm"
         layout={formLayout}
         style={formStyle}
@@ -116,7 +101,6 @@ const AddGame = () => {
         autoComplete="on"
       >
         <h2>Add Game</h2>
-        {/* Form items for various game attributes */}
         <Form.Item
           label="Name"
           name="name"
@@ -200,7 +184,6 @@ const AddGame = () => {
             style={inputStyle}
             onChange={(value) => setGame({ ...game, availability: value })}
           >
-            {/* Options for availability selection */}
             <Option value="In Stock">In Stock</Option>
             <Option value="Out of Stock">Out of Stock</Option>
           </Select>
@@ -218,7 +201,6 @@ const AddGame = () => {
             },
           ]}
         >
-          {/* Upload component for game picture */}
           <Upload
             name="picture"
             action="http://localhost:5050/api/games/upload"
@@ -228,11 +210,11 @@ const AddGame = () => {
           </Upload>
         </Form.Item>
 
-        {/* Submit button */}
         <Form.Item wrapperCol={buttonCol}>
           <Button
             type="primary"
             htmlType="submit"
+            loading={isLoading}
             title="Click Submit to add the game"
           >
             Submit
@@ -243,5 +225,4 @@ const AddGame = () => {
   );
 };
 
-// Export the AddGame component as the default export of this module
 export default AddGame;

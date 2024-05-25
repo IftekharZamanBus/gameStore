@@ -7,7 +7,17 @@ function Signup() {
 
   const onFinish = async (values) => {
     try {
-      await dispatch(signUp(values));
+      // Adjust the form values to match the expected backend field names
+      const userData = {
+        full_name: values.fullName,
+        email: values.email,
+        password: values.password,
+        username: values.username,
+        phone_number: values['phone-number'],
+        address: values.address,
+      };
+
+      await dispatch(signUp(userData));
       message.success('Signup successful');
     } catch (error) {
       console.error('Error signing up:', error);

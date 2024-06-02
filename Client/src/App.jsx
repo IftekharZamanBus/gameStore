@@ -6,6 +6,10 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
+import TaxList from './components/TaxList';
+import ShippingAddressList from './components/ShippingAddressList';
+import BillingAddressList from './components/BillingAddressList';
+import OrderList from './components/OrderList';
 import {
   HomeOutlined,
   PlusOutlined,
@@ -13,6 +17,10 @@ import {
   UserAddOutlined,
   UserOutlined,
   LogoutOutlined,
+  CreditCardOutlined,
+  AmazonOutlined,
+  BarcodeOutlined,
+  CalendarOutlined,
 } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
 import About from './pages/About';
@@ -167,6 +175,42 @@ function App() {
                       </Link>
                     </li>
                   </Tooltip>
+                  <Tooltip title="Taxes">
+                    <li>
+                      <Link to="/taxes">
+                        <Button style={buttonStyle}>
+                          <CreditCardOutlined />
+                        </Button>
+                      </Link>
+                    </li>
+                  </Tooltip>
+                  <Tooltip title="Shipping Addresses">
+                    <li>
+                      <Link to="/shipping-addresses">
+                        <Button style={buttonStyle}>
+                          <AmazonOutlined />
+                        </Button>
+                      </Link>
+                    </li>
+                  </Tooltip>
+                  <Tooltip title="Billing Addresses">
+                    <li>
+                      <Link to="/billing-addresses">
+                        <Button style={buttonStyle}>
+                          <BarcodeOutlined />
+                        </Button>
+                      </Link>
+                    </li>
+                  </Tooltip>
+                  <Tooltip title="Orders">
+                    <li>
+                      <Link to="/orders">
+                        <Button style={buttonStyle}>
+                          <CalendarOutlined />
+                        </Button>
+                      </Link>
+                    </li>
+                  </Tooltip>
                 </>
               )}
             </ul>
@@ -183,6 +227,10 @@ function App() {
             <Route path="/users" element={<UserList />} />
             <Route path="/resetpassword" element={<ResetPassword />} />
             <Route path="/userprofile" element={<UserProfile />} />
+            <Route path="/taxes" element={<TaxList />} />
+            <Route path="/shipping-addresses" element={<ShippingAddressList />} />
+            <Route path="/billing-addresses" element={<BillingAddressList />} />
+            <Route path="/orders" element={<OrderList />} />
           </Routes>
 
           <Footer />
